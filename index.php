@@ -10,6 +10,14 @@ switch ($page) {
     case 'about':
     case 'CV':
     case 'contact':
+    case 'competences':
+    case 'projets_en_cours':
+    case 'blog':
+    case 'temoignages':
+    case 'telechargements':
+    case 'faq':
+    case 'statistiques':
+    case 'add_project' :
         $view = "views/$page.php";
         break;
     case 'projet':
