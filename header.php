@@ -1,7 +1,4 @@
 <!-- filepath: c:\wamp64\www\PHP\Portefolio\header.php -->
- <!-- <head>
-    <link rel="stylesheet" href="assets/css/styles.css">
- </head> -->
 <header class="navbar">
   <div class="container">
     <div class="logo">Mon Portfolio</div>
@@ -10,6 +7,7 @@
       <a href="index.php?page=projet">Projets</a>
       <a href="index.php?page=CV">CV</a>
       <a href="index.php?page=contact">Contact</a>
+      <a href="index.php?page=add_project">Ajouter projet</a>
     </nav>
   </div>
 </header>
