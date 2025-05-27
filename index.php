@@ -1,8 +1,28 @@
 <?php
+require_once 'controllers/PageController.php';
+require_once 'controllers/ProjectController.php';
+
 $page = $_GET['page'] ?? 'about';
-$allowed_pages = ['about', 'projet', 'CV', 'contact'];
-if (!in_array($page, $allowed_pages)) {
-    $page = 'about';
+
+$data = []; // Tableau pour stocker les données à transmettre aux vues
+
+switch ($page) {
+    case 'about':
+    case 'CV':
+    case 'contact':
+        $view = "views/$page.php";
+        break;
+    case 'projet':
+        $data['projects'] = ProjectController::listProjects(); // Récupère les projets
+        $view = "views/projet.php";
+        break;
+    case 'add_project':
+        ProjectController::addProject(); // Gère l'ajout de projet
+        $view = "views/add_project.php";
+        break;
+    default:
+        $view = "views/about.php";
+        break;
 }
 ?>
 <!DOCTYPE html>
@@ -16,7 +36,7 @@ if (!in_array($page, $allowed_pages)) {
 <body>
   <?php include 'header.php'; ?>
   <main>
-    <?php include $page . '.php'; ?>
+    <?php include $view; ?>
   </main>
   <?php include 'footer.php'; ?>
   <script src="assets/js/main.js"></script>
