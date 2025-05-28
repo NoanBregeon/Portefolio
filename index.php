@@ -42,11 +42,11 @@ switch ($page) {
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-  <?php include 'header.php'; ?>
+  <?php include 'layouts/header.php'; ?>
   <main>
     <?php include $view; ?>
   </main>
-  <?php include 'footer.php'; ?>
+  <?php include 'layouts/footer.php'; ?>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
