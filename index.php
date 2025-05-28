@@ -12,12 +12,7 @@ switch ($page) {
     case 'contact':
     case 'competences':
     case 'projets_en_cours':
-    case 'blog':
-    case 'temoignages':
-    case 'telechargements':
-    case 'faq':
-    case 'statistiques':
-    case 'add_project' :
+    case 'create_user': // Ajout de la page "Créer Utilisateur"
         $view = "views/$page.php";
         break;
     case 'projet':
@@ -27,6 +22,10 @@ switch ($page) {
     case 'add_project':
         ProjectController::addProject(); // Gère l'ajout de projet
         $view = "views/add_project.php";
+        break;
+        case 'login':
+        // Redirection vers la page de connexion si nécessaire
+        $view = "views/login.php";
         break;
     default:
         $view = "views/about.php";
@@ -38,8 +37,8 @@ switch ($page) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio</title>
   <link rel="stylesheet" href="assets/css/styles.css">
+  <title>Portfolio</title>
 </head>
 <body>
   <?php include 'layouts/header.php'; ?>

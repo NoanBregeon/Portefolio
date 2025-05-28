@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header('Location: index.php?page=login');
+    exit;
+}
+
 $host = 'localhost';
 $dbname = 'portfolio';
 $username = 'root';
@@ -7,18 +14,6 @@ $password = '';
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $title = $_POST['title'];
-        $description = $_POST['description'];
-        $technologies = $_POST['technologies'];
-        $github_link = $_POST['github_link'];
-
-        $stmt = $pdo->prepare("INSERT INTO projects (title, description, technologies, github_link) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$title, $description, $technologies, $github_link]);
-
-        echo "Projet ajouté avec succès !";
-    }
 } catch (PDOException $e) {
     die("Erreur : " . $e->getMessage());
 }
@@ -50,5 +45,17 @@ try {
         <button type="submit">Ajouter le projet</button>
       </form>
     </section>
+
+    <?php
+    if (isset($_POST['logout'])) {
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
+    ?>
+
+    <form method="POST" action="">
+        <button type="submit" name="logout">Se déconnecter</button>
+    </form>
 </body>
 </html>
