@@ -107,24 +107,28 @@
         <div class="min-h-screen flex flex-col relative z-10">
             <!-- Header -->
             <header class="bg-gray-900/80 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                     <div class="text-2xl font-bold text-indigo-400 hover:text-indigo-300 transition duration-300" style="text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);">
-                        <a href="{{ route('home') }}">Mon Portfolio</a>
+                        <a href="#home">Noan Bregeon</a>
                     </div>
-                    <nav class="space-x-4">
-                        <a href="{{ route('home') }}" class="text-gray-300 hover:text-indigo-400 transition relative group">
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="#home" class="text-gray-300 hover:text-indigo-400 transition relative group text-sm uppercase tracking-wider">
                             Accueil
                             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 transition-all group-hover:w-full"></span>
                         </a>
-                        <a href="{{ route('projects.index') }}" class="text-gray-300 hover:text-indigo-400 transition relative group">
+                        <a href="#about" class="text-gray-300 hover:text-indigo-400 transition relative group text-sm uppercase tracking-wider">
+                            À propos
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 transition-all group-hover:w-full"></span>
+                        </a>
+                        <a href="#projects" class="text-gray-300 hover:text-indigo-400 transition relative group text-sm uppercase tracking-wider">
                             Projets
                             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 transition-all group-hover:w-full"></span>
                         </a>
-                        <a href="{{ route('articles.index') }}" class="text-gray-300 hover:text-indigo-400 transition relative group">
-                            Articles
+                        <a href="#skills" class="text-gray-300 hover:text-indigo-400 transition relative group text-sm uppercase tracking-wider">
+                            Compétences
                             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 transition-all group-hover:w-full"></span>
                         </a>
-                        <a href="{{ route('contact.index') }}" class="text-gray-300 hover:text-indigo-400 transition relative group">
+                        <a href="#contact" class="text-gray-300 hover:text-indigo-400 transition relative group text-sm uppercase tracking-wider">
                             Contact
                             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 transition-all group-hover:w-full"></span>
                         </a>
