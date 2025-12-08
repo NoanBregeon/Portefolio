@@ -1,59 +1,79 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Portfolio - Noan Bregeon
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Bienvenue sur le dépôt de mon portfolio personnel. Ce projet est une application web moderne mettant en avant mes compétences en développement, avec une expérience visuelle immersive.
 
-## About Laravel
+## 🌟 À propos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Ce portfolio est conçu pour être plus qu'une simple vitrine de projets. Il intègre une expérience 3D interactive en arrière-plan, créant une atmosphère "Sci-Fi" / "Cyberpunk" unique. L'objectif est de démontrer une maîtrise technique à la fois sur le backend (Laravel) et le frontend (Three.js, Tailwind).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Stack Technique
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Backend
+- **Framework** : [Laravel 12](https://laravel.com)
+- **Langage** : PHP 8.2+
 
-## Learning Laravel
+### Frontend
+- **Framework CSS** : [Tailwind CSS 3](https://tailwindcss.com)
+- **Interactivité** : [Alpine.js](https://alpinejs.dev)
+- **3D & WebGL** : [Three.js](https://threejs.org)
+- **Build Tool** : [Vite](https://vitejs.dev)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## ✨ Fonctionnalités Clés
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Expérience 3D Immersive** : Une scène Three.js en arrière-plan avec des formes géométriques abstraites (Icosaèdre, Torus) et un champ de particules animé.
+- **Design Réactif** : Interface utilisateur fluide et adaptée à tous les écrans grâce à Tailwind CSS.
+- **Esthétique Cyberpunk** : Utilisation d'un thème sombre, de couleurs néon (Indigo, Cyan) et d'effets de transparence.
+- **Mode Debug** : Un mode de débogage intégré (`?debug=true`) permettant d'inspecter la scène 3D avec `OrbitControls`.
 
-## Laravel Sponsors
+## 🚀 Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Pour lancer ce projet localement, suivez ces étapes :
 
-### Premium Partners
+1. **Cloner le dépôt**
+   ```bash
+   git clone https://github.com/NoanBregeon/Portefolio.git
+   cd Portefolio
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. **Installer les dépendances PHP**
+   ```bash
+   composer install
+   ```
 
-## Contributing
+3. **Installer les dépendances JavaScript**
+   ```bash
+   npm install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Configuration de l'environnement**
+   Copiez le fichier d'exemple `.env` et générez la clé d'application :
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Code of Conduct
+5. **Lancer le serveur de développement**
+   Vous pouvez utiliser la commande personnalisée définie dans `composer.json` pour lancer à la fois le serveur Laravel et Vite :
+   ```bash
+   composer run dev
+   ```
+   Ou lancer les commandes séparément :
+   ```bash
+   npm run dev
+   php artisan serve
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🎨 Personnalisation 3D
 
-## Security Vulnerabilities
+La logique de la scène 3D se trouve dans `resources/js/three-scene.js`. Vous pouvez y modifier :
+- Les formes géométriques.
+- Les couleurs et matériaux.
+- La vitesse d'animation.
+- La densité des particules.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 📝 Auteur
 
-## License
+**Noan Bregeon**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+*Développé avec ❤️ et beaucoup de café.*

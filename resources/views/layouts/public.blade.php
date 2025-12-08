@@ -13,20 +13,121 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            indigo: {
+                                50: '#eef2ff',
+                                100: '#e0e7ff',
+                                200: '#c7d2fe',
+                                300: '#a5b4fc',
+                                400: '#818cf8',
+                                500: '#6366f1',
+                                600: '#4f46e5',
+                                700: '#4338ca',
+                                800: '#3730a3',
+                                900: '#312e81',
+                            }
+                        },
+                        animation: {
+                            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                            'bounce': 'bounce 2s infinite',
+                        },
+                        keyframes: {
+                            fadeInUp: {
+                                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                                '100%': { opacity: '1', transform: 'translateY(0)' },
+                            },
+                            noise: {
+                                '0%, 100%': { transform: 'translate(0, 0)' },
+                                '10%': { transform: 'translate(-5%, -5%)' },
+                                '20%': { transform: 'translate(-10%, 5%)' },
+                                '30%': { transform: 'translate(5%, -10%)' },
+                                '40%': { transform: 'translate(-5%, 15%)' },
+                                '50%': { transform: 'translate(-10%, 5%)' },
+                                '60%': { transform: 'translate(15%, 0)' },
+                                '70%': { transform: 'translate(0, 10%)' },
+                                '80%': { transform: 'translate(-15%, 0)' },
+                                '90%': { transform: 'translate(10%, 5%)' },
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <style>
+            .cursor-dot,
+            .cursor-outline {
+                position: fixed;
+                top: 0;
+                left: 0;
+                transform: translate(-50%, -50%);
+                border-radius: 50%;
+                z-index: 9999;
+                pointer-events: none;
+            }
+            .cursor-dot {
+                width: 8px;
+                height: 8px;
+                background-color: #818cf8;
+            }
+            .cursor-outline {
+                width: 40px;
+                height: 40px;
+                border: 1px solid #818cf8;
+                transition: width 0.2s, height 0.2s, background-color 0.2s;
+            }
+            body:hover .cursor-outline {
+                width: 50px;
+                height: 50px;
+                background-color: rgba(129, 140, 248, 0.1);
+            }
+            .noise-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 9998;
+                opacity: 0.05;
+                background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAA5OTkAAABMTExERERmZmYzMzNmZmYAAAC5M2I4AAAACHRSTlMAMwAzzMz//wD335WcAAAAWklEQVQ4y2NgwA34BwQw4A98A4I4A9+AII7ANyCIE/ANCOIEfAOCuADfgCAu4BsQxAX8A4K4gH9AEBfwDwjiAv4BQVzAPyCIC/gHBHEB/4AgLuAfEMQF/AOCuAC/iC+Qy7n7LgAAAABJRU5ErkJggg==');
+                animation: noise 1s steps(10) infinite;
+            }
+        </style>
     </head>
-    <body class="font-sans antialiased text-gray-900 bg-gray-100">
-        <div class="min-h-screen flex flex-col">
+    <body class="font-sans antialiased text-gray-100 bg-gray-900 cursor-none">
+        <div class="cursor-dot" id="cursor-dot"></div>
+        <div class="cursor-outline" id="cursor-outline"></div>
+        <div class="noise-overlay"></div>
+        <div id="canvas-container" class="fixed inset-0 z-0 pointer-events-none"></div>
+        <div class="min-h-screen flex flex-col relative z-10">
             <!-- Header -->
-            <header class="bg-white shadow">
+            <header class="bg-gray-900/80 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
-                    <div class="text-2xl font-bold text-indigo-600">
+                    <div class="text-2xl font-bold text-indigo-400 hover:text-indigo-300 transition duration-300" style="text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);">
                         <a href="{{ route('home') }}">Mon Portfolio</a>
                     </div>
                     <nav class="space-x-4">
-                        <a href="{{ route('home') }}" class="text-gray-600 hover:text-indigo-600">Accueil</a>
-                        <a href="{{ route('projects.index') }}" class="text-gray-600 hover:text-indigo-600">Projets</a>
-                        <a href="{{ route('articles.index') }}" class="text-gray-600 hover:text-indigo-600">Articles</a>
-                        <a href="{{ route('contact.index') }}" class="text-gray-600 hover:text-indigo-600">Contact</a>
+                        <a href="{{ route('home') }}" class="text-gray-300 hover:text-indigo-400 transition relative group">
+                            Accueil
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 transition-all group-hover:w-full"></span>
+                        </a>
+                        <a href="{{ route('projects.index') }}" class="text-gray-300 hover:text-indigo-400 transition relative group">
+                            Projets
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 transition-all group-hover:w-full"></span>
+                        </a>
+                        <a href="{{ route('articles.index') }}" class="text-gray-300 hover:text-indigo-400 transition relative group">
+                            Articles
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 transition-all group-hover:w-full"></span>
+                        </a>
+                        <a href="{{ route('contact.index') }}" class="text-gray-300 hover:text-indigo-400 transition relative group">
+                            Contact
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 transition-all group-hover:w-full"></span>
+                        </a>
                     </nav>
                 </div>
             </header>
@@ -37,11 +138,30 @@
             </main>
 
             <!-- Footer -->
-            <footer class="bg-gray-800 text-white py-6">
+            <footer class="bg-gray-900/90 backdrop-blur-md border-t border-gray-800 text-gray-400 py-8 mt-auto">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    &copy; {{ date('Y') }} Mon Portfolio. Tous droits réservés.
+                    <p>&copy; {{ date('Y') }} Mon Portfolio. Fait avec <span class="text-red-500 animate-pulse">❤</span> et Laravel.</p>
                 </div>
             </footer>
         </div>
+
+        <script>
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                // Animation fluide pour le cercle extérieur
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+        </script>
     </body>
 </html>
