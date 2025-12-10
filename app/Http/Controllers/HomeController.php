@@ -8,35 +8,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Données en dur pour les compétences
-        $skills = [
-            'Backend' => [
-                ['name' => 'Laravel', 'proficiency' => 90, 'icon' => 'fa-brands fa-laravel'],
-                ['name' => 'PHP 8.4', 'proficiency' => 85, 'icon' => 'fa-brands fa-php'],
-                ['name' => 'MySQL / MariaDB', 'proficiency' => 80, 'icon' => 'fa-solid fa-database'],
-                ['name' => 'PostgreSQL', 'proficiency' => 70, 'icon' => 'fa-solid fa-server'],
-            ],
-            'Frontend' => [
-                ['name' => 'TailwindCSS', 'proficiency' => 95, 'icon' => 'fa-brands fa-css3'],
-                ['name' => 'JavaScript (ES6+)', 'proficiency' => 75, 'icon' => 'fa-brands fa-js'],
-                ['name' => 'Blade Templating', 'proficiency' => 90, 'icon' => 'fa-brands fa-html5'],
-                ['name' => 'Alpine.js', 'proficiency' => 60, 'icon' => 'fa-brands fa-js'],
-            ],
-            'Outils & DevOps' => [
-                ['name' => 'Git / GitHub', 'proficiency' => 85, 'icon' => 'fa-brands fa-git-alt'],
-                ['name' => 'Docker', 'proficiency' => 60, 'icon' => 'fa-brands fa-docker'],
-                ['name' => 'VS Code', 'proficiency' => 95, 'icon' => 'fa-solid fa-code'],
-                ['name' => 'Composer / NPM', 'proficiency' => 80, 'icon' => 'fa-solid fa-terminal'],
-            ]
-        ];
-
         // Données en dur pour les projets (Aperçu sur l'accueil)
-        $projects = [
+        $featuredProjects = [
             (object) [
                 'title' => 'E-Commerce Laravel',
                 'slug' => 'e-commerce-laravel',
                 'description' => 'Une plateforme e-commerce complète avec gestion de panier, paiement Stripe et panel admin.',
-                'thumbnail' => 'images/projects/ecommerce.jpg', // Assurez-vous d'avoir une image ici ou null
+                'thumbnail' => 'images/projects/ecommerce.jpg',
                 'categories' => [
                     (object)['name' => 'Laravel'],
                     (object)['name' => 'Stripe']
@@ -67,6 +45,6 @@ class HomeController extends Controller
             ],
         ];
 
-        return view('home', compact('projects', 'skills'));
+        return view('home', compact('featuredProjects'));
     }
 }

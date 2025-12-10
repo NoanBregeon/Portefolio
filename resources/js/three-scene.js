@@ -91,12 +91,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Boucle d'animation ---
     const clock = new THREE.Clock();
 
+    // Souris
+    let mouseX = 0;
+    let mouseY = 0;
+
+    window.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX / window.innerWidth) - 0.5;
+        mouseY = (event.clientY / window.innerHeight) - 0.5;
+    });
+
     const tick = () => {
         const elapsedTime = clock.getElapsedTime();
 
-        // Rotation automatique du groupe principal (Indépendant de la souris)
+        // Rotation automatique du groupe principal
         geometryGroup.rotation.y = elapsedTime * 0.1;
         geometryGroup.rotation.x = elapsedTime * 0.05;
+
+        // Effet Parallax Souris (Lissage)
+        // On ajoute une rotation supplémentaire basée sur la souris
+        const targetRotationX = mouseY * 0.5;
+        const targetRotationY = mouseX * 0.5;
+
+        // Lerp pour la fluidité
+        geometryGroup.rotation.x += 0.05 * (targetRotationX - geometryGroup.rotation.x);
+        geometryGroup.rotation.y += 0.05 * (targetRotationY - geometryGroup.rotation.y);
 
         // Rotation des parties individuelles pour plus de complexité
         sphere.rotation.y = elapsedTime * 0.1;
@@ -107,8 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Mouvement lent des particules
         starField.rotation.y = elapsedTime * 0.02;
+        starField.rotation.x = mouseY * 0.1; // Parallax particules
 
-        // Effet de flottement vertical (Fixe au centre de l'écran, pas de scroll)
+        // Effet de flottement vertical
         geometryGroup.position.y = Math.sin(elapsedTime * 0.5) * 1;
 
         renderer.render(scene, camera);

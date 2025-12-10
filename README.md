@@ -1,53 +1,120 @@
-# 🚀 Portfolio - Noan Bregeon
+# 🚀 Portfolio Personnel — Noan Bregeon
 
 ![Laravel](https://img.shields.io/badge/Laravel-12.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-WebGL-black?style=for-the-badge&logo=three.js&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-3D-black?style=for-the-badge&logo=three.js&logoColor=white)
+![Alpine.js](https://img.shields.io/badge/Alpine.js-Interactive-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white)
 
-Bienvenue sur le dépôt source de mon portfolio professionnel. Ce projet est une démonstration technique de mes compétences en développement Full-Stack, alliant la robustesse de **Laravel** à l'interactivité de **Three.js**.
-
----
-
-## 👨‍💻 À Propos du Développeur
-
-**Noan Bregeon** — Développeur Full-Stack Junior
-*BTS SIO Option SLAM (Solutions Logicielles et Applications Métiers)*
-
-Je suis spécialisé dans la conception d'applications web et logicielles sécurisées et performantes. Mon expertise se concentre sur l'écosystème **Laravel** pour le web et **C# .NET** pour le développement applicatif.
-
-> *"J’aime construire des applications propres, sécurisées et maintenables."*
+> **Un portfolio immersif et moderne conçu pour présenter mes compétences en développement Full-Stack.**  
+> *Design sombre, animations fluides, expérience utilisateur soignée.*
 
 ---
 
-## 🏗️ Architecture & Stack Technique
+## ✨ Fonctionnalités Clés
 
-Ce portfolio est construit comme une Single Page Application (visuellement) propulsée par un backend Laravel robuste.
+### 🎨 Expérience Visuelle & UI
+*   **Thème Cosmique 3D** : Arrière-plan interactif généré avec **Three.js** (particules, connexions).
+*   **Smooth Scrolling** : Défilement inertiel ultra-fluide grâce à **Lenis**.
+*   **Animations Staggered** : Apparition en cascade des éléments (projets, textes) au chargement.
+*   **Design Glassmorphism** : Utilisation intensive de flous d'arrière-plan (`backdrop-blur`) et de dégradés subtils.
+*   **Boutons Magnétiques** : Effet d'attraction du curseur sur les boutons d'action principaux.
 
-### 🔧 Backend
-- **Framework** : Laravel 12
-- **Langage** : PHP 8.4
-- **Base de données** : Compatible MySQL / MariaDB / PostgreSQL
-- **Architecture** : MVC, Orienté Objet, SOLID
-
-### 🎨 Frontend
-- **Design** : Tailwind CSS 3 (Mode Sombre / Cyberpunk)
-- **3D Engine** : Three.js (Rendu WebGL interactif)
-- **Interactivité** : Alpine.js & Vanilla JS
-- **Build Tool** : Vite
-
-### ⚙️ Système & DevOps
-- **OS Supporté** : Debian 12 / AlmaLinux / Windows
-- **Serveur Web** : Apache / Nginx
-- **Versionning** : Git / GitHub
+### 🛠️ Gestion de Contenu Dynamique
+*   **Système de Projets "File-Based"** :
+    *   Les images sont chargées automatiquement depuis des dossiers dédiés (`public/images/projects/{slug}`).
+    *   Les extraits de code sont détectés et affichés dynamiquement (`code.php`, `snippet.js`, etc.).
+*   **Galerie Intelligente** :
+    *   Détection automatique des miniatures.
+    *   Lightbox intégrée pour visualiser les captures d'écran en grand.
+*   **Code Viewer** : Intégration de **Highlight.js** (thème Atom One Dark) pour une lecture confortable du code source directement sur le site.
 
 ---
 
-## ✨ Fonctionnalités du Portfolio
+## 🏗️ Stack Technique
 
-### 1. Expérience 3D Immersive
-Le fond du site est une scène 3D générée en temps réel (`resources/js/three-scene.js`) comprenant :
-- **Formes Géométriques** : Icosaèdre en fil de fer et Torus en rotation.
+Ce projet est construit sur des bases solides et modernes :
+
+| Technologie | Usage |
+| :--- | :--- |
+| **Laravel 12** | Framework Backend robuste (Routing, Controllers, Blade). |
+| **Tailwind CSS** | Framework CSS utilitaire pour un design sur-mesure. |
+| **Alpine.js** | Micro-framework JS pour l'interactivité (modales, transitions). |
+| **Three.js** | Moteur 3D pour l'arrière-plan immersif. |
+| **Vite** | Bundler ultra-rapide pour les assets. |
+
+---
+
+## 📂 Structure du Projet
+
+```bash
+c:\code\Portefolio
+├── app/Http/Controllers/ProjectController.php  # Cœur de la logique (Données + Scan fichiers)
+├── resources/views/
+│   ├── layouts/public.blade.php                # Layout principal (Scripts, Styles, Three.js)
+│   ├── projects/
+│   │   ├── index.blade.php                     # Grille des projets (Animée)
+│   │   └── show.blade.php                      # Détail projet (Galerie + Code)
+│   └── home.blade.php                          # Landing Page
+└── public/images/projects/                     # Dossiers de contenu (Images & Code)
+    ├── portfolio-personnel/
+    ├── task-manager-api/
+    └── ...
+```
+
+---
+
+## 🚀 Installation & Démarrage
+
+1.  **Cloner le dépôt**
+    ```bash
+    git clone https://github.com/NoanBregeon/portfolio.git
+    cd portfolio
+    ```
+
+2.  **Installer les dépendances**
+    ```bash
+    composer install
+    npm install
+    ```
+
+3.  **Configuration**
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+4.  **Lancer le serveur de développement**
+    ```bash
+    npm run dev
+    # Dans un autre terminal
+    php artisan serve
+    ```
+
+---
+
+## 💡 Comment ajouter du contenu ?
+
+Le site est conçu pour être **facilement maintenable** sans toucher au code.
+
+### Ajouter des images à un projet
+1.  Aller dans `public/images/projects/{slug-du-projet}/`.
+2.  Glisser les images (`.jpg`, `.png`, `.webp`).
+3.  *C'est tout ! Elles apparaissent automatiquement dans la galerie.*
+
+### Ajouter un extrait de code
+1.  Aller dans le même dossier.
+2.  Créer un fichier commençant par `code.` ou `snippet.` (ex: `code.php`, `snippet.js`).
+3.  Coller le code.
+4.  *Il s'affichera automatiquement avec la coloration syntaxique adaptée.*
+
+---
+
+## 👤 Auteur
+
+**Noan Bregeon**  
+*Développeur Full-Stack Junior — Passionné par Laravel & C#*
+
+[![GitHub](https://img.shields.io/badge/GitHub-NoanBregeon-181717?style=for-the-badge&logo=github)](https://github.com/NoanBregeon)
 - **Système de Particules** : Champ d'étoiles animé pour la profondeur.
 - **Éclairage Dynamique** : Sources lumineuses colorées (Indigo/Cyan) orbitant autour de la scène.
 - **Réactivité** : La scène s'adapte au redimensionnement et reste fluide.
