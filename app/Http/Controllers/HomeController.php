@@ -2,37 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // Données en dur pour les projets (Aperçu sur l'accueil)
-        $featuredProjects = [
-            (object) [
-                'title' => 'Gestionnaire de Tâches API',
-                'slug' => 'task-manager-api',
-                'description' => 'Projet de groupe. API RESTful sécurisée avec Sanctum pour la gestion de tâches collaboratives.',
-                'thumbnail' => 'images/projects/api.jpg',
-                'categories' => [
-                    (object)['name' => 'API'],
-                    (object)['name' => 'Vue.js']
-                ],
-                'published_at' => now()->subMonths(2),
-            ],
-            (object) [
-                'title' => 'Portfolio Personnel',
-                'slug' => 'portfolio-perso',
-                'description' => 'Le site sur lequel vous naviguez actuellement. Design moderne et responsive.',
-                'thumbnail' => 'images/projects/portfolio.jpg',
-                'categories' => [
-                    (object)['name' => 'Tailwind'],
-                    (object)['name' => 'Design']
-                ],
-                'published_at' => now()->subDays(5),
-            ],
-        ];
+        // Récupérer les projets mis en avant
+        $featuredProjects = Project::with('categories')
+            ->where('is_featured', true)
+            ->get();
+
+        // Si plus de 3 projets sont mis en avant, en prendre 3 au hasard
+        if ($featuredProjects->count() > 3) {
+            $featuredProjects = $featuredProjects->random(3);
+        }
+
+        // Si aucun projet n'est mis en avant, prendre les 3 derniers publiés
+        if ($featuredProjects->isEmpty()) {
+            $featuredProjects = Project::with('categories')
+                ->orderBy('published_at', 'desc')
+                ->take(3)
+                ->get();
+        }
 
         return view('home', compact('featuredProjects'));
     }

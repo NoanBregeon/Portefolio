@@ -18,15 +18,17 @@ class Project extends Model
         'url_repo',
         'url_demo',
         'published_at',
+        'is_featured',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'is_featured' => 'boolean',
     ];
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'project_category');
     }
 
     public function images()

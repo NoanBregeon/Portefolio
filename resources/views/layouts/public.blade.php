@@ -308,5 +308,10 @@
                 });
             });
         </script>
+
+        <!-- Hidden Admin Login -->
+        <div class="fixed bottom-0 right-0 p-2 opacity-0 hover:opacity-100 transition-opacity duration-500 z-50">
+            <a href="{{ route('login') }}" class="text-gray-500 hover:text-white text-xs">Admin</a>
+        </div>
     </body>
 </html>
