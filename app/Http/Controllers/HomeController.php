@@ -11,20 +11,9 @@ class HomeController extends Controller
         // Données en dur pour les projets (Aperçu sur l'accueil)
         $featuredProjects = [
             (object) [
-                'title' => 'E-Commerce Laravel',
-                'slug' => 'e-commerce-laravel',
-                'description' => 'Une plateforme e-commerce complète avec gestion de panier, paiement Stripe et panel admin.',
-                'thumbnail' => 'images/projects/ecommerce.jpg',
-                'categories' => [
-                    (object)['name' => 'Laravel'],
-                    (object)['name' => 'Stripe']
-                ],
-                'published_at' => now()->subMonth(),
-            ],
-            (object) [
                 'title' => 'Gestionnaire de Tâches API',
                 'slug' => 'task-manager-api',
-                'description' => 'API RESTful sécurisée avec Sanctum pour la gestion de tâches collaboratives.',
+                'description' => 'Projet de groupe. API RESTful sécurisée avec Sanctum pour la gestion de tâches collaboratives.',
                 'thumbnail' => 'images/projects/api.jpg',
                 'categories' => [
                     (object)['name' => 'API'],

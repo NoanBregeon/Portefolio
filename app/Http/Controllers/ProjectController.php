@@ -181,7 +181,7 @@ class ProjectController extends Controller
                     (object)['name' => 'API Twitch']
                 ],
                 'images' => $this->getProjectImages('bot-discord-js'),
-                'published_at' => now()->subMonths(3),
+                'published_at' => now()->subMonths(4),
             ],
             (object) [
                 'id' => 10,
