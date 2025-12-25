@@ -1,145 +1,130 @@
+
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('canvas-container');
     if (!container) return;
 
+    /* =====================
+       SCENE / CAMERA / RENDERER
+    ====================== */
     const scene = new THREE.Scene();
-    // Ajout de brouillard pour la profondeur (couleur du fond Tailwind gray-900)
     scene.fog = new THREE.FogExp2(0x111827, 0.002);
 
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    const camera = new THREE.PerspectiveCamera(
+        55,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        700
+    );
+    camera.position.z = 30;
+
+    const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true
+    });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+
     container.appendChild(renderer.domElement);
 
-    // --- Formes Abstraites ---
-    const geometryGroup = new THREE.Group();
-    scene.add(geometryGroup);
-
-    // 1. Icosaèdre Principal (Fil de fer)
-    const geometry = new THREE.IcosahedronGeometry(10, 1);
-    const material = new THREE.MeshBasicMaterial({
-        color: 0x6366f1, // Indigo-500
-        wireframe: true,
-        transparent: true,
-        opacity: 0.3
-    });
-    const sphere = new THREE.Mesh(geometry, material);
-    geometryGroup.add(sphere);
-
-    // 2. Cœur Solide
-    const coreGeometry = new THREE.IcosahedronGeometry(4, 0);
-    const coreMaterial = new THREE.MeshStandardMaterial({
-        color: 0x818cf8,
-        roughness: 0.1,
-        metalness: 0.8,
-        emissive: 0x3730a3,
-        emissiveIntensity: 0.5
-    });
-    const core = new THREE.Mesh(coreGeometry, coreMaterial);
-    geometryGroup.add(core);
-
-    // 3. Anneau Torus Flottant
-    const torusGeometry = new THREE.TorusGeometry(14, 0.5, 16, 100);
-    const torusMaterial = new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.1
-    });
-    const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-    geometryGroup.add(torus);
-
-    // --- Particules (Champ d'étoiles) ---
+    /* =====================
+       PARTICULES – CHAMP D'ÉTOILES
+    ====================== */
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 2000;
+    const particlesCount = 2500;
     const posArray = new Float32Array(particlesCount * 3);
 
-    for(let i = 0; i < particlesCount * 3; i++) {
-        // Dispersion large
-        posArray[i] = (Math.random() - 0.5) * 100;
+    for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 120;
     }
 
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particlesGeometry.setAttribute(
+        'position',
+        new THREE.BufferAttribute(posArray, 3)
+    );
+
     const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.05,
+        size: 0.06,
         color: 0x818cf8,
         transparent: true,
-        opacity: 0.5,
+        opacity: 0.6,
         blending: THREE.AdditiveBlending
     });
-    const starField = new THREE.Points(particlesGeometry, particlesMaterial);
+
+    const starField = new THREE.Points(
+        particlesGeometry,
+        particlesMaterial
+    );
     scene.add(starField);
 
-    // --- Lumières ---
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    /* =====================
+       LUMIÈRES
+    ====================== */
+    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
-    const pointLight = new THREE.PointLight(0x6366f1, 2);
-    pointLight.position.set(20, 20, 20);
-    scene.add(pointLight);
+    const keyLight = new THREE.DirectionalLight(0x6366f1, 1.2);
+    keyLight.position.set(10, 10, 10);
+    scene.add(keyLight);
 
-    const pointLight2 = new THREE.PointLight(0x00ffff, 2);
-    pointLight2.position.set(-20, -20, 20);
-    scene.add(pointLight2);
+    const fillLight = new THREE.DirectionalLight(0x00ffff, 0.6);
+    fillLight.position.set(-10, -5, 10);
+    scene.add(fillLight);
 
-    camera.position.z = 30;
+    /* =====================
+       MODÈLE 3D
+    ====================== */
+    const loader = new GLTFLoader();
+    let model = null;
 
-    // --- Boucle d'animation ---
+    loader.load(
+        '/models/vaisseau.glb',
+        (gltf) => {
+            model = gltf.scene;
+            model.scale.set(0.18, 0.18, 0.18);
+            model.position.set(0, -12, 0);
+            scene.add(model);
+        },
+        undefined,
+        (error) => {
+            console.error('Erreur chargement GLB:', error);
+        }
+    );
+
+    /* =====================
+       ANIMATION
+    ====================== */
     const clock = new THREE.Clock();
 
-    // Souris
-    let mouseX = 0;
-    let mouseY = 0;
-
-    window.addEventListener('mousemove', (event) => {
-        mouseX = (event.clientX / window.innerWidth) - 0.5;
-        mouseY = (event.clientY / window.innerHeight) - 0.5;
-    });
-
-    const tick = () => {
+    function animate() {
         const elapsedTime = clock.getElapsedTime();
 
-        // Rotation automatique du groupe principal
-        geometryGroup.rotation.y = elapsedTime * 0.1;
-        geometryGroup.rotation.x = elapsedTime * 0.05;
+        // Rotation douce du vaisseau
+        if (model) {
+            model.rotation.y += 0.0015;
+        }
 
-        // Effet Parallax Souris (Lissage)
-        // On ajoute une rotation supplémentaire basée sur la souris
-        const targetRotationX = mouseY * 0.5;
-        const targetRotationY = mouseX * 0.5;
-
-        // Lerp pour la fluidité
-        geometryGroup.rotation.x += 0.05 * (targetRotationX - geometryGroup.rotation.x);
-        geometryGroup.rotation.y += 0.05 * (targetRotationY - geometryGroup.rotation.y);
-
-        // Rotation des parties individuelles pour plus de complexité
-        sphere.rotation.y = elapsedTime * 0.1;
-        core.rotation.y = -elapsedTime * 0.2;
-        core.rotation.z = elapsedTime * 0.1;
-        torus.rotation.x = elapsedTime * 0.1;
-        torus.rotation.y = elapsedTime * 0.05;
-
-        // Mouvement lent des particules
-        starField.rotation.y = elapsedTime * 0.02;
-        starField.rotation.x = mouseY * 0.1; // Parallax particules
-
-        // Effet de flottement vertical
-        geometryGroup.position.y = Math.sin(elapsedTime * 0.5) * 1;
+        // Mouvement lent des étoiles
+        starField.rotation.y = elapsedTime * 0.015;
+        starField.rotation.x = Math.sin(elapsedTime * 0.1) * 0.05;
 
         renderer.render(scene, camera);
-        window.requestAnimationFrame(tick);
-    };
+        requestAnimationFrame(animate);
+    }
 
-    tick();
+    animate();
 
-    // --- Redimensionnement ---
+    /* =====================
+       RESIZE
+    ====================== */
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 });
+        // On ajoute une rotation supplémentaire basée sur la souris
