@@ -142,12 +142,6 @@ Pas besoin de panel admin complexe. Tout se gère via le système de fichiers.
 
 ---
 
-<div align="center">
-  <p>Fait avec ❤️ et beaucoup de ☕ par <b>Noan Bregeon</b></p>
-  
-  [![GitHub](https://img.shields.io/badge/GitHub-NoanBregeon-181717?style=for-the-badge&logo=github)](https://github.com/NoanBregeon)
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/noan-bregeon)
-</div>
 
 - **Système de Particules** : Champ d'étoiles animé pour la profondeur.
 - **Éclairage Dynamique** : Sources lumineuses colorées (Indigo/Cyan) orbitant autour de la scène.
@@ -223,4 +217,11 @@ Ce dépôt contient la présentation détaillée de mes projets académiques et 
 Ce portfolio est open-source. Le code est libre d'utilisation pour inspiration, mais le contenu (textes, projets, identité) reste la propriété de **Noan Bregeon**.
 
 ---
+
+<div align="center">
+  <p>Fait avec ❤️ et beaucoup de ☕ par <b>Noan Bregeon</b></p>
+  
+  [![GitHub](https://img.shields.io/badge/GitHub-NoanBregeon-181717?style=for-the-badge&logo=github)](https://github.com/NoanBregeon)
+  [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/noan-bregeon)
+</div>
 *Généré et maintenu par Noan Bregeon.*
