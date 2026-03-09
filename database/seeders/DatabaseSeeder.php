@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
                 'thumbnail' => 'images/projects/api.jpg',
                 'url_repo' => 'https://github.com/Jules-pecquereau/methode_agile_app',
                 'url_demo' => null,
-                'categories' => ['API REST', 'Sanctum', 'Backend'],
+                'categories' => ['API REST', 'Laravel 12', 'Sanctum', 'Agile', 'MySQL', 'Backend'],
                 'published_at' => now()->subMonths(2),
             ],
             [
@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
                 'thumbnail' => 'images/projects/e6-web.jpg',
                 'url_repo' => 'https://github.com/NoanBregeon/Epreuve_E6_Legere',
                 'url_demo' => null,
-                'categories' => ['Laravel', 'E6', 'Fullstack'],
+                'categories' => ['Laravel 12', 'E6', 'Fullstack'],
                 'published_at' => now()->subMonths(5),
             ],
             [

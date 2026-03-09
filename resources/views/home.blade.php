@@ -22,10 +22,10 @@
                 </div>
             </div>
 
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4 drop-shadow-lg animate-focus-reveal font-display">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-indigo-400 mb-4 drop-shadow-sm animate-focus-reveal font-display">
                 Développeur Full-Stack Junior
             </h1>
-            <h2 class="text-xl md:text-2xl text-indigo-400 font-mono mb-6 animate-fade-in-up delay-100">
+            <h2 class="text-xl md:text-2xl text-indigo-300 font-mono mb-6 animate-fade-in-up delay-100">
                 BTS SIO SLAM — Spécialisé Laravel & C#
             </h2>
 
@@ -34,11 +34,11 @@
             </p>
 
             <div class="flex justify-center gap-6 animate-fade-in-up delay-300">
-                <a href="{{ route('projects.index') }}" class="magnetic-btn relative px-8 py-3 bg-indigo-600 text-white font-bold rounded-full overflow-hidden group shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(79,70,229,0.6)] active:scale-95">
-                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[length:200%_200%] animate-gradient-x"></span>
+                <a href="{{ route('projects.index') }}" class="magnetic-btn relative px-8 py-3 bg-indigo-600 text-white font-bold rounded-full overflow-hidden group shadow-[0_4px_15px_rgba(79,70,229,0.4)] transition-all duration-300 hover:shadow-[0_8px_25px_rgba(79,70,229,0.6)] hover:-translate-y-1 active:scale-95">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[length:200%_200%] animate-gradient-x"></span>
                     <span class="relative z-10 block transition-transform duration-300">Voir mes projets</span>
                 </a>
-                <a href="{{ route('about') }}" class="magnetic-btn relative px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-full border border-gray-600 transition-all duration-300 shadow-lg active:scale-95">
+                <a href="{{ route('about') }}" class="magnetic-btn relative px-8 py-3 bg-gray-800/80 hover:bg-gray-700 backdrop-blur-md text-white font-bold rounded-full border border-gray-600 transition-all duration-300 shadow-lg hover:shadow-[0_4px_15px_rgba(255,255,255,0.05)] hover:-translate-y-1 active:scale-95">
                     <span class="relative z-10 block transition-transform duration-300">En savoir plus</span>
                 </a>
             </div>
@@ -60,20 +60,20 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @foreach($featuredProjects as $project)
-                <div class="bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:bg-gray-800/60 transition group reveal">
+                <div class="bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:bg-gray-800/70 hover:border-indigo-500/50 hover:shadow-[0_8px_30px_rgba(79,70,229,0.15)] transition-all duration-300 group reveal hover:-translate-y-2">
                     <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition">{{ $project->title }}</h3>
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors duration-300">{{ $project->title }}</h3>
                     </div>
-                    <p class="text-gray-400 text-sm mb-4">
+                    <p class="text-gray-400 text-sm mb-4 leading-relaxed">
                         {{ Str::limit($project->description, 100) }}
                     </p>
                     <div class="flex flex-wrap gap-2 text-xs text-gray-500 mb-4">
                         @foreach($project->categories as $category)
-                            <span class="px-2 py-1 bg-gray-900 rounded border border-gray-700">{{ $category->name }}</span>
+                            <span class="px-2 py-1 bg-gray-900/80 rounded-md border border-gray-700/50 text-indigo-300">{{ $category->name }}</span>
                         @endforeach
                     </div>
-                    <a href="{{ route('projects.show', $project->slug) }}" class="text-indigo-400 hover:text-indigo-300 text-sm font-medium flex items-center">
-                        Voir le projet <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    <a href="{{ route('projects.show', $project->slug) }}" class="text-indigo-400 hover:text-indigo-200 text-sm font-medium flex items-center transition-colors group-hover:translate-x-1 duration-300">
+                        Voir le projet <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
                 @endforeach

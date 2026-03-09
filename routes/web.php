@@ -7,6 +7,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AboutController as AdminAboutController;
+use App\Http\Controllers\Admin\ExperienceController as AdminExperienceController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -35,5 +37,12 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::delete('/projects/{project}', [AdminController::class, 'destroy'])->name('projects.destroy');
 
     Route::get('/images/{id}/delete', [AdminController::class, 'deleteImage'])->name('images.delete');
+
+    // About Page (Setting)
+    Route::get('/about', [AdminAboutController::class, 'edit'])->name('about.edit');
+    Route::put('/about', [AdminAboutController::class, 'update'])->name('about.update');
+
+    // Parcours (Experiences)
+    Route::resource('experiences', AdminExperienceController::class)->except(['show']);
 });
 

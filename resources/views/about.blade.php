@@ -7,16 +7,8 @@
                     <h2 class="text-3xl font-bold text-white mb-6 flex items-center font-display">
                         <span class="text-indigo-500 mr-3">#</span> À propos de moi
                     </h2>
-                    <div class="prose prose-invert text-gray-300 leading-relaxed">
-                        <p class="mb-4">
-                            Passionné par le développement informatique, j'ai suivi un parcours en <strong>BTS SIO option SLAM</strong> (Solutions Logicielles et Applications Métiers). Mon objectif est de concevoir des solutions robustes et efficaces.
-                        </p>
-                        <p class="mb-4">
-                            Je suis particulièrement à l'aise avec l'écosystème <strong>Laravel</strong> pour le web et <strong>C#</strong> pour le développement applicatif lourd. J'accorde une grande importance à la qualité du code, à la sécurité et aux bonnes pratiques (MVC, SOLID).
-                        </p>
-                        <p class="mb-6">
-                            Actuellement à la recherche d'une <strong>alternance</strong> ou d'un <strong>premier poste</strong> en tant que développeur web ou applicatif, je suis prêt à relever de nouveaux défis techniques.
-                        </p>
+                    <div class="prose prose-invert text-gray-300 leading-relaxed font-sans">
+                        {!! nl2br(e($aboutText)) !!}
                     </div>
 
                     <!-- Mini Stack -->
@@ -167,24 +159,30 @@
                              :class="show ? 'scale-y-100' : 'scale-y-0'"></div>
 
                         <ol class="relative">
-                            <li class="mb-6 ml-6 transition-all duration-700 delay-700"
+                            @forelse($experiences as $xp)
+                            <li class="mb-10 ml-10 transition-all duration-700 delay-{{ 500 + ($loop->index * 200) }}"
                                 :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'">
-                                <span class="absolute flex items-center justify-center w-6 h-6 bg-indigo-900 rounded-full -left-3 ring-8 ring-gray-900 z-10">
-                                    <svg class="w-3 h-3 text-indigo-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 00-1-1H6zm1 2h6v1H7V4z" clip-rule="evenodd"></path></svg>
+                                <span class="absolute flex items-center justify-center w-6 h-6 rounded-full -left-3 ring-8 ring-gray-900 z-10 {{ $xp->icon ?: 'bg-gray-700 text-gray-300' }}">
+                                    @if(str_contains($xp->icon, '<svg'))
+                                        {!! $xp->icon !!}
+                                    @else
+                                        <!-- Default icon if none provided -->
+                                        <svg class="w-3 h-3 text-current" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 001-.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+                                    @endif
                                 </span>
-                                <h4 class="flex items-center mb-1 text-lg font-semibold text-white">BTS SIO SLAM</h4>
-                                <time class="block mb-2 text-sm font-normal text-gray-400">IIA Saint-Nazaire</time>
-                                <p class="text-sm text-gray-400">Spécialisation développement logiciel et web.</p>
+                                <h4 class="flex items-center mb-1 text-lg font-semibold text-white">{{ $xp->title }}</h4>
+                                <time class="block mb-2 text-sm font-normal text-gray-400">
+                                    {{ $xp->company }} | 
+                                    @if($xp->start_date)
+                                        {{ $xp->start_date->format('M Y') }} - 
+                                    @endif
+                                    {{ $xp->end_date ? $xp->end_date->format('M Y') : 'Aujourd\'hui' }}
+                                </time>
+                                <p class="text-sm text-gray-400">{{ $xp->description }}</p>
                             </li>
-                            <li class="mb-6 ml-6 transition-all duration-700 delay-1000"
-                                :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'">
-                                <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-700 rounded-full -left-3 ring-8 ring-gray-900 z-10">
-                                    <svg class="w-3 h-3 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 001-.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
-                                </span>
-                                <h4 class="mb-1 text-lg font-semibold text-white">Expérience Terrain</h4>
-                                <time class="block mb-2 text-sm font-normal text-gray-400">Hyper U</time>
-                                <p class="text-sm text-gray-400">Stage et emploi étudiant. Rigueur et contact client.</p>
-                            </li>
+                            @empty
+                                <p class="text-gray-500 italic ml-6">Aucune expérience renseignée pour le moment.</p>
+                            @endforelse
                         </ol>
                     </div>
                 </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Setting;
+use App\Models\Experience;
 
 class AboutController extends Controller
 {
@@ -29,6 +31,10 @@ class AboutController extends Controller
             ]
         ];
 
-        return view('about', compact('skills'));
+        // Fetch dynamic content from database
+        $aboutText = Setting::where('key', 'about_introduction')->first()->value ?? 'Texte de présentation par défaut. Modifiez-le dans le tableau de bord admin.';
+        $experiences = Experience::orderBy('order', 'asc')->orderBy('start_date', 'desc')->get();
+
+        return view('about', compact('skills', 'aboutText', 'experiences'));
     }
 }

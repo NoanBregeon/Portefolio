@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,143 +18,11 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
-        <script>
-            tailwind.config = {
-                theme: {
-                    fontFamily: {
-                        sans: ['Figtree', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-                    },
-                    fontSize: {
-                        xs: ['0.875rem', { lineHeight: '1.25rem' }],
-                        sm: ['1rem', { lineHeight: '1.5rem' }],
-                        base: ['1.125rem', { lineHeight: '1.75rem' }],
-                        lg: ['1.25rem', { lineHeight: '1.75rem' }],
-                        xl: ['1.5rem', { lineHeight: '2rem' }],
-                        '2xl': ['1.875rem', { lineHeight: '2.25rem' }],
-                        '3xl': ['2.25rem', { lineHeight: '2.5rem' }],
-                        '4xl': ['3rem', { lineHeight: '1' }],
-                        '5xl': ['3.75rem', { lineHeight: '1' }],
-                        '6xl': ['4.5rem', { lineHeight: '1' }],
-                        '7xl': ['6rem', { lineHeight: '1' }],
-                        '8xl': ['8rem', { lineHeight: '1' }],
-                        '9xl': ['10rem', { lineHeight: '1' }],
-                    },
-                    extend: {
-                        colors: {
-                            indigo: {
-                                50: '#eef2ff',
-                                100: '#e0e7ff',
-                                200: '#c7d2fe',
-                                300: '#a5b4fc',
-                                400: '#818cf8',
-                                500: '#6366f1',
-                                600: '#4f46e5',
-                                700: '#4338ca',
-                                800: '#3730a3',
-                                900: '#312e81',
-                            }
-                        },
-                        animation: {
-                            'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards',
-                            'bounce': 'bounce 2s infinite',
-                            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                            'breathe': 'breathe 3s ease-in-out infinite',
-                            'focus-reveal': 'focusReveal 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards',
-                        },
-                        keyframes: {
-                            fadeInUp: {
-                                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                                '100%': { opacity: '1', transform: 'translateY(0)' },
-                            },
-                            breathe: {
-                                '0%, 100%': { transform: 'scale(1)' },
-                                '50%': { transform: 'scale(1.05)' },
-                            },
-                            focusReveal: {
-                                '0%': { filter: 'blur(10px)', opacity: '0', letterSpacing: '0.5em' },
-                                '100%': { filter: 'blur(0)', opacity: '1', letterSpacing: 'normal' },
-                            },
-                            noise: {
-                                '0%, 100%': { transform: 'translate(0, 0)' },
-                                '10%': { transform: 'translate(-5%, -5%)' },
-                                '20%': { transform: 'translate(-10%, 5%)' },
-                                '30%': { transform: 'translate(5%, -10%)' },
-                                '40%': { transform: 'translate(-5%, 15%)' },
-                                '50%': { transform: 'translate(-10%, 5%)' },
-                                '60%': { transform: 'translate(15%, 0)' },
-                                '70%': { transform: 'translate(0, 10%)' },
-                                '80%': { transform: 'translate(-15%, 0)' },
-                                '90%': { transform: 'translate(10%, 5%)' },
-                            }
-                        }
-                    }
-                }
-            }
-        </script>
-        <style>
-            /* Custom Scrollbar */
-            ::-webkit-scrollbar {
-                width: 10px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #111827;
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #4f46e5;
-                border-radius: 5px;
-                border: 2px solid #111827;
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #4338ca;
-            }
-
-            .cursor-dot,
-            .cursor-outline {
-                position: fixed;
-                top: 0;
-                left: 0;
-                transform: translate(-50%, -50%);
-                border-radius: 50%;
-                z-index: 9999;
-                pointer-events: none;
-            }
-            .cursor-dot {
-                width: 8px;
-                height: 8px;
-                background-color: #818cf8;
-            }
-            .cursor-outline {
-                width: 40px;
-                height: 40px;
-                border: 1px solid #818cf8;
-                transition: width 0.2s, height 0.2s, background-color 0.2s;
-            }
-            body:hover .cursor-outline {
-                width: 50px;
-                height: 50px;
-                background-color: rgba(129, 140, 248, 0.1);
-            }
-            .noise-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                z-index: 9998;
-                opacity: 0.05;
-                background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAA5OTkAAABMTExERERmZmYzMzNmZmYAAAC5M2I4AAAACHRSTlMAMwAzzMz//wD335WcAAAAWklEQVQ4y2NgwA34BwQw4A98A4I4A9+AII7ANyCIE/ANCOIEfAOCuADfgCAu4BsQxAX8A4K4gH9AEBfwDwjiAv4BQVzAPyCIC/gHBHEB/4AgLuAfEMQF/AOCuAC/iC+Qy7n7LgAAAABJRU5ErkJggg==');
-                animation: noise 1s steps(10) infinite;
-            }
-        </style>
     </head>
     <body class="font-sans antialiased text-gray-100 bg-gray-900 cursor-none"
           x-data="{ loading: true }"
-          x-init="setTimeout(() => loading = false, 800)"
+          x-init="setTimeout(() => loading = false, 200)"
           @start-loading.window="loading = true">
 
         <!-- Loading Screen -->
@@ -313,5 +181,9 @@
         <div class="fixed bottom-0 right-0 p-2 opacity-0 hover:opacity-100 transition-opacity duration-500 z-50">
             <a href="{{ route('login') }}" class="text-gray-500 hover:text-white text-xs">Admin</a>
         </div>
+            <!-- Bouton Accessibilité -->
+            <button id="accessibility-toggle" class="fixed bottom-4 left-4 z-50 bg-blue-100 border border-blue-300 shadow-lg rounded-full px-4 py-2 text-sm font-semibold text-blue-900 transition-colors duration-300 hover:bg-blue-200 focus:outline-none">
+                Mode accessible
+            </button>
     </body>
 </html>

@@ -36,6 +36,10 @@
             <div class="fixed bottom-0 right-0 p-2 opacity-0 hover:opacity-100 transition-opacity duration-500">
                 <a href="{{ route('login') }}" class="text-gray-800 text-xs">Admin</a>
             </div>
+            <!-- Bouton Accessibilité -->
+            <button id="accessibility-toggle" class="fixed bottom-4 left-4 z-50 bg-white border border-gray-300 shadow-lg rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:bg-blue-100 focus:outline-none">
+                Mode accessible
+            </button>
         </div>
     </body>
 </html>

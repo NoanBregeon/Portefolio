@@ -1,6 +1,5 @@
 
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('canvas-container');
@@ -76,24 +75,29 @@ document.addEventListener('DOMContentLoaded', () => {
     scene.add(fillLight);
 
     /* =====================
-       MODÈLE 3D
+       STRUCTURE 3D LÉGÈRE (ABSTRAITE)
     ====================== */
-    const loader = new GLTFLoader();
-    let model = null;
+    const geometry = new THREE.IcosahedronGeometry(9, 1);
+    const material = new THREE.MeshStandardMaterial({
+        color: 0x6366f1,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.6
+    });
+    const model = new THREE.Mesh(geometry, material);
+    model.position.set(0, -2, 0);
+    scene.add(model);
 
-    loader.load(
-        '/models/vaisseau.glb',
-        (gltf) => {
-            model = gltf.scene;
-            model.scale.set(0.18, 0.18, 0.18);
-            model.position.set(0, -12, 0);
-            scene.add(model);
-        },
-        undefined,
-        (error) => {
-            console.error('Erreur chargement GLB:', error);
-        }
-    );
+    // Noyau interne
+    const coreGeometry = new THREE.IcosahedronGeometry(4, 0);
+    const coreMaterial = new THREE.MeshBasicMaterial({
+        color: 0x818cf8,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.2
+    });
+    const core = new THREE.Mesh(coreGeometry, coreMaterial);
+    model.add(core);
 
     /* =====================
        ANIMATION
@@ -103,9 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate() {
         const elapsedTime = clock.getElapsedTime();
 
-        // Rotation douce du vaisseau
+        // Rotation douce de la structure abstraite
         if (model) {
-            model.rotation.y += 0.0015;
+            model.rotation.y += 0.002;
+            model.rotation.x += 0.001;
         }
 
         // Mouvement lent des étoiles
