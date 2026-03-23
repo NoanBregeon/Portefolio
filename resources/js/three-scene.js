@@ -5,6 +5,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('canvas-container');
     if (!container) return;
 
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const getStoredAccessibilityMode = () => {
+        const value = localStorage.getItem('accessibilityMode');
+
+        if (value === 'true') {
+            return true;
+        }
+
+        if (value === 'false') {
+            return false;
+        }
+
+        return null;
+    };
+
+    const shouldReduceMotion = () => {
+        const storedPreference = getStoredAccessibilityMode();
+
+        if (storedPreference !== null) {
+            return storedPreference;
+        }
+
+        return reducedMotionQuery.matches;
+    };
+
     /* =====================
        SCENE / CAMERA / RENDERER
     ====================== */
@@ -103,6 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
        ANIMATION
     ====================== */
     const clock = new THREE.Clock();
+    let animationFrameId = null;
+
+    function renderScene() {
+        renderer.render(scene, camera);
+    }
 
     function animate() {
         const elapsedTime = clock.getElapsedTime();
@@ -117,11 +147,31 @@ document.addEventListener('DOMContentLoaded', () => {
         starField.rotation.y = elapsedTime * 0.015;
         starField.rotation.x = Math.sin(elapsedTime * 0.1) * 0.05;
 
-        renderer.render(scene, camera);
-        requestAnimationFrame(animate);
+        renderScene();
+        animationFrameId = requestAnimationFrame(animate);
     }
 
-    animate();
+    function stopAnimation() {
+        if (animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        }
+    }
+
+    function syncMotionPreference() {
+        stopAnimation();
+
+        if (shouldReduceMotion()) {
+            clock.stop();
+            renderScene();
+            return;
+        }
+
+        clock.start();
+        animate();
+    }
+
+    syncMotionPreference();
 
     /* =====================
        RESIZE
@@ -130,6 +180,10 @@ document.addEventListener('DOMContentLoaded', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderScene();
     });
+
+    reducedMotionQuery.addEventListener('change', syncMotionPreference);
+    window.addEventListener('accessibility-mode-changed', syncMotionPreference);
 });
         // On ajoute une rotation supplémentaire basée sur la souris

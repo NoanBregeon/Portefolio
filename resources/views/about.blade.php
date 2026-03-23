@@ -21,30 +21,10 @@
                     </div>
                 </div>
 
-                <!-- Card "Identity" -->
-                <div class="bg-gray-800/50 border border-gray-700 rounded-xl p-6 shadow-xl relative overflow-hidden group hover:border-indigo-500/50 transition-colors">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <svg class="w-32 h-32 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-4">Ma méthode de travail</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-green-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Code <strong>propre et structuré</strong></span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-green-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Approche orientée <strong>sécurité</strong></span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-green-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Documentation rigoureuse</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-green-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Veille technologique constante</span>
-                        </li>
-                    </ul>
+                <!-- Photo de profil -->
+                <div class="flex justify-center items-center group relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+                    <img src="{{ asset('images/photo_profile/image_photo_profile.png') }}" alt="Photo de profil" class="relative w-64 h-64 rounded-full border-4 border-indigo-500/50 shadow-2xl group-hover:shadow-indigo-500/20 group-hover:border-indigo-400 transition-all duration-500 object-cover">
                 </div>
             </div>
         </div>
@@ -162,23 +142,27 @@
                             @forelse($experiences as $xp)
                             <li class="mb-10 ml-10 transition-all duration-700 delay-{{ 500 + ($loop->index * 200) }}"
                                 :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'">
-                                <span class="absolute flex items-center justify-center w-6 h-6 rounded-full -left-3 ring-8 ring-gray-900 z-10 {{ $xp->icon ?: 'bg-gray-700 text-gray-300' }}">
-                                    @if(str_contains($xp->icon, '<svg'))
-                                        {!! $xp->icon !!}
-                                    @else
-                                        <!-- Default icon if none provided -->
-                                        <svg class="w-3 h-3 text-current" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 001-.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
-                                    @endif
-                                </span>
-                                <h4 class="flex items-center mb-1 text-lg font-semibold text-white">{{ $xp->title }}</h4>
-                                <time class="block mb-2 text-sm font-normal text-gray-400">
-                                    {{ $xp->company }} | 
-                                    @if($xp->start_date)
-                                        {{ $xp->start_date->format('M Y') }} - 
-                                    @endif
-                                    {{ $xp->end_date ? $xp->end_date->format('M Y') : 'Aujourd\'hui' }}
-                                </time>
-                                <p class="text-sm text-gray-400">{{ $xp->description }}</p>
+                                <div class="flex items-start gap-4">
+                                    <span class="mt-1 flex items-center justify-center w-7 h-7 rounded-full ring-4 ring-gray-900 z-10 shrink-0 {{ $xp->icon ?: 'bg-gray-700 text-gray-300' }}">
+                                        @if(str_contains($xp->icon, '<svg'))
+                                            {!! $xp->icon !!}
+                                        @else
+                                            <!-- Default icon if none provided -->
+                                            <svg class="w-3 h-3 text-current" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 001-.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+                                        @endif
+                                    </span>
+                                    <div>
+                                        <h4 class="flex items-center mb-1 text-lg font-semibold text-white">{{ $xp->title }}</h4>
+                                        <time class="block mb-2 text-sm font-normal text-gray-400">
+                                            {{ $xp->company }} |
+                                            @if($xp->start_date)
+                                                {{ $xp->start_date->format('M Y') }} -
+                                            @endif
+                                            {{ $xp->end_date ? $xp->end_date->format('M Y') : 'Aujourd\'hui' }}
+                                        </time>
+                                        <p class="text-sm text-gray-400">{{ $xp->description }}</p>
+                                    </div>
+                                </div>
                             </li>
                             @empty
                                 <p class="text-gray-500 italic ml-6">Aucune expérience renseignée pour le moment.</p>

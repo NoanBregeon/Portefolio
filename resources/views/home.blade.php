@@ -18,7 +18,7 @@
             <div class="mb-8 relative inline-block group">
                 <div class="absolute inset-0 bg-indigo-500 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition duration-500 animate-pulse-slow"></div>
                 <div class="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 p-1 shadow-[0_0_30px_rgba(99,102,241,0.5)] relative z-10 transform transition duration-500 group-hover:scale-105">
-                    <img src="https://ui-avatars.com/api/?name=Noan+Bregeon&background=1e1b4b&color=818cf8&size=256" alt="Noan Bregeon" class="w-full h-full rounded-full object-cover border-4 border-gray-900">
+                    <img src="{{ asset('images/photo_profile/image_photo_profile.png') }}" alt="Noan Bregeon" class="w-full h-full rounded-full object-cover border-4 border-gray-900">
                 </div>
             </div>
 

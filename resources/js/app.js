@@ -10,24 +10,35 @@ Alpine.start();
 // Accessibilité : désactivation des animations (pour layout public)
 document.addEventListener('DOMContentLoaded', () => {
 	const btn = document.getElementById('accessibility-toggle');
-	if (!btn) return;
-	btn.addEventListener('click', () => {
-		const accessible = localStorage.getItem('accessibilityMode') === 'true';
-		if (!accessible) {
-			document.body.classList.add('accessibility-mode');
-			localStorage.setItem('accessibilityMode', 'true');
-			btn.textContent = 'Mode normal';
-		} else {
-			document.body.classList.remove('accessibility-mode');
-			localStorage.setItem('accessibilityMode', 'false');
-			btn.textContent = 'Mode accessible';
+	const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+	const getStoredAccessibilityMode = () => {
+		const value = localStorage.getItem('accessibilityMode');
+		if (value === 'true') return true;
+		if (value === 'false') return false;
+		return null;
+	};
+
+	const applyAccessibilityMode = (enabled) => {
+		document.body.classList.toggle('accessibility-mode', enabled);
+		localStorage.setItem('accessibilityMode', String(enabled));
+
+		if (btn) {
+			btn.textContent = enabled ? 'Mode normal' : 'Mode accessible';
 		}
+
+		window.dispatchEvent(new CustomEvent('accessibility-mode-changed', {
+			detail: { enabled }
+		}));
+	};
+
+	const isEnabled = getStoredAccessibilityMode() ?? reducedMotionQuery.matches;
+	applyAccessibilityMode(isEnabled);
+
+	if (!btn) return;
+
+	btn.addEventListener('click', () => {
+		applyAccessibilityMode(!document.body.classList.contains('accessibility-mode'));
 	});
-	// Appliquer le mode au chargement
-	if (localStorage.getItem('accessibilityMode') === 'true') {
-		document.body.classList.add('accessibility-mode');
-		btn.textContent = 'Mode normal';
-	}
 });
 
 
