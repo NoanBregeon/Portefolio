@@ -1,39 +1,79 @@
+<div align="center">
+
 # Portfolio - Noan Bregeon
 
-Portfolio personnel developpe avec React et Vite, avec une interface immersive (fond 3D, animations fluides, glassmorphism) et une architecture front claire basee sur des pages, composants reutilisables et donnees JSON statiques.
+Application portfolio front-end construite avec React et Vite, orientee experience utilisateur: fond 3D, animations fluides, UI glassmorphism et navigation SPA.
 
-## Apercu
+[![React](https://img.shields.io/badge/React-19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Tailwind](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Three.js](https://img.shields.io/badge/Three.js-R3F-black?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-Animations-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
-Le site met en avant un profil developpeur Full Stack, des projets techniques et un parcours, avec une navigation SPA:
+</div>
 
-- Accueil: hero, mise en avant de projets, CTA de navigation
-- A propos: presentation et experiences chargees depuis un endpoint JSON
-- Projets: grille complete des projets
-- Detail projet: vue detaillee via slug dynamique
-- Contact: informations + formulaire de contact visuel
+## Sommaire
 
-## Stack Technique Actuelle
+- [Portfolio - Noan Bregeon](#portfolio---noan-bregeon)
+  - [Sommaire](#sommaire)
+  - [Vue Rapide](#vue-rapide)
+  - [Fonctionnalites](#fonctionnalites)
+  - [Pages Et Routing](#pages-et-routing)
+  - [Architecture Technique](#architecture-technique)
+  - [Structure Du Projet](#structure-du-projet)
+  - [Installation Et Commandes](#installation-et-commandes)
+  - [Gestion Du Contenu](#gestion-du-contenu)
+  - [Licence](#licence)
 
-- React 19
-- Vite 8
-- React Router (routing client)
-- Tailwind CSS
-- Framer Motion (animations d'apparition)
-- Three.js via React Three Fiber + Drei (fond etoile anime)
-- Lucide React (icones)
+## Vue Rapide
 
-## Fonctionnalites Principales
+Le site presente un profil developpeur Full Stack et des projets techniques avec une navigation fluide:
 
-- Routing SPA avec routes dediees et route dynamique `projects/:slug`
-- Chargement des donnees metier via `fetch` sur:
-  - `public/api/projects.json`
-  - `public/api/experiences.json`
-- Fond 3D immersif avec etoiles animees
-- Sections animees au scroll via composant reutilisable `AnimatedSection`
-- UI type glassmorphism et curseur personnalise desktop
-- Design responsive (mobile / tablette / desktop)
+- Accueil: hero, presentation et projets mis en avant
+- A propos: parcours et experiences chargees depuis un JSON
+- Projets: grille complete des realisations
+- Detail projet: page dynamique basee sur le slug
+- Contact: informations et formulaire visuel
 
-## Architecture du Projet
+## Fonctionnalites
+
+| Bloc | Description |
+| :--- | :--- |
+| Routing SPA | Navigation client avec routes statiques et dynamique `projects/:slug` |
+| Data Layer | Chargement des donnees via `fetch` depuis `public/api/*.json` |
+| Ambiance visuelle | Fond 3D etoile anime avec React Three Fiber et Drei |
+| Motion UI | Animations au scroll via `AnimatedSection` + Framer Motion |
+| Interface | Effets glassmorphism, overlay noise, curseur personnalise desktop |
+| Responsive | Rendu adapte mobile, tablette et desktop |
+
+## Pages Et Routing
+
+Definition des routes dans [src/App.jsx](src/App.jsx):
+
+| Route | Composant |
+| :--- | :--- |
+| `/` | `Home` |
+| `/about` | `About` |
+| `/projects` | `Projects` |
+| `/projects/:slug` | `ProjectDetail` |
+| `/contact` | `Contact` |
+
+## Architecture Technique
+
+```mermaid
+flowchart LR
+    U[Utilisateur] --> R[React Router]
+    R --> P1[Pages]
+    P1 --> L[Layout Global]
+    L --> B1[Navbar]
+    L --> B2[Footer]
+    L --> B3[ThreeBackground]
+    P1 --> A1[AnimatedSection]
+    P1 --> D1[Fetch /api/projects.json]
+    P1 --> D2[Fetch /api/experiences.json]
+```
+
+## Structure Du Projet
 
 ```text
 c:/code/Portefolio
@@ -62,64 +102,40 @@ c:/code/Portefolio
 |- vite.config.js
 ```
 
-## Routing
+## Installation Et Commandes
 
-Routes definies dans `src/App.jsx`:
-
-- `/` -> `Home`
-- `/about` -> `About`
-- `/projects` -> `Projects`
-- `/projects/:slug` -> `ProjectDetail`
-- `/contact` -> `Contact`
-
-## Demarrage Local
-
-### Prerequis
+Prerequis:
 
 - Node.js 20+
 - npm
 
-### Installation
+Installation:
 
 ```bash
 npm install
 ```
 
-### Lancer en developpement
+Commandes principales:
 
-```bash
-npm run dev
-```
+| Commande | Utilite |
+| :--- | :--- |
+| `npm run dev` | Lance le serveur de developpement Vite |
+| `npm run build` | Genere le build de production |
+| `npm run preview` | Previsualise localement le build |
+| `npm run lint` | Lance ESLint |
 
-### Build de production
+## Gestion Du Contenu
 
-```bash
-npm run build
-```
+Le contenu fonctionnel du site est pilote par JSON:
 
-### Previsualiser le build
+- Projets: [public/api/projects.json](public/api/projects.json)
+- Experiences: [public/api/experiences.json](public/api/experiences.json)
 
-```bash
-npm run preview
-```
+Note importante:
 
-## Scripts npm
-
-- `npm run dev`: serveur de developpement Vite
-- `npm run build`: build production
-- `npm run preview`: preview local du build
-- `npm run lint`: lint ESLint
-
-## Gestion du Contenu
-
-Le contenu affichable est gere par fichiers JSON dans `public/api`.
-
-- Pour ajouter/modifier des projets: editer `public/api/projects.json`
-- Pour ajouter/modifier les experiences: editer `public/api/experiences.json`
-
-Le detail projet est resolu par `slug`, il faut donc garantir des slugs uniques dans `projects.json`.
+- La page detail projet utilise le champ slug, qui doit rester unique dans projects.json.
 
 ## Licence
 
-Code open source a but portfolio/inspiration.
-Le contenu (identite, textes, projets personnels) reste la propriete de Noan Bregeon.
+Code open source a usage portfolio et inspiration.
+Le contenu personnel (identite, textes, projets) reste la propriete de Noan Bregeon.
