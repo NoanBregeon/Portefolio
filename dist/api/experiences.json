@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Développement Système Drive",
+    "company": "Projet de Formation (BTS SIO)",
+    "date": "Sept 2024 - Aujourd'hui",
+    "description": "Création d'un backend Laravel B2B/B2C, d'une API REST de synchronisation et déploiement Linux.",
+    "icon": "server"
+  },
+  {
+    "title": "Client Lourd de Caisse",
+    "company": "Projet de Formation (BTS SIO)",
+    "date": "Janv 2025 - Aujourd'hui",
+    "description": "Développement C# Avalonia (MVVM) pour la facturation et mise à jour temps réel des stocks.",
+    "icon": "terminal"
+  }
+]
