@@ -1,7 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:4338ca&height=140&section=header&text=Portefolio Noan Bregeon&fontSize=52&fontAlignY=35&animation=fadeIn" alt="Banniere Noan" width="100%" />
-
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:4338ca&height=160&section=header&text=Portfolio%20Noan%20Bregeon&fontSize=44&fontAlignY=38&animation=fadeIn" alt="Banniere Portfolio Noan Bregeon" width="100%" />
 
 Application portfolio front-end construite avec React et Vite, orientee experience utilisateur: fond 3D, animations fluides, UI glassmorphism et navigation SPA.
 
