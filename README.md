@@ -1,8 +1,7 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:4338ca&height=140&section=header&text=Noan&fontSize=52&fontAlignY=35&animation=fadeIn" alt="Banniere Noan" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:4338ca&height=140&section=header&text=# Portfolio - Noan Bregeon&fontSize=52&fontAlignY=35&animation=fadeIn" alt="Banniere Noan" width="100%" />
 
-# Portfolio - Noan Bregeon
 
 Application portfolio front-end construite avec React et Vite, orientee experience utilisateur: fond 3D, animations fluides, UI glassmorphism et navigation SPA.
 
@@ -16,16 +15,15 @@ Application portfolio front-end construite avec React et Vite, orientee experien
 
 ## Sommaire
 
-- [Portfolio - Noan Bregeon](#portfolio---noan-bregeon)
-  - [Sommaire](#sommaire)
-  - [Vue Rapide](#vue-rapide)
-  - [Fonctionnalites](#fonctionnalites)
-  - [Pages Et Routing](#pages-et-routing)
-  - [Architecture Technique](#architecture-technique)
-  - [Structure Du Projet](#structure-du-projet)
-  - [Installation Et Commandes](#installation-et-commandes)
-  - [Gestion Du Contenu](#gestion-du-contenu)
-  - [Licence](#licence)
+- [Sommaire](#sommaire)
+- [Vue Rapide](#vue-rapide)
+- [Fonctionnalites](#fonctionnalites)
+- [Pages Et Routing](#pages-et-routing)
+- [Architecture Technique](#architecture-technique)
+- [Structure Du Projet](#structure-du-projet)
+- [Installation Et Commandes](#installation-et-commandes)
+- [Gestion Du Contenu](#gestion-du-contenu)
+- [Licence](#licence)
 
 ## Vue Rapide
 
