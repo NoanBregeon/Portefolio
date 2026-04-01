@@ -1,227 +1,125 @@
-<div align="center">
+# Portfolio - Noan Bregeon
 
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:312e81,100:4f46e5&height=250&section=header&text=Noan%20Bregeon&fontSize=80&fontAlignY=35&desc=Développeur%20Full-Stack%20Junior%20•%20Laravel%20&%20C%23&descAlignY=60&descAlign=50&animation=fadeIn" alt="Header" width="100%"/>
+Portfolio personnel developpe avec React et Vite, avec une interface immersive (fond 3D, animations fluides, glassmorphism) et une architecture front claire basee sur des pages, composants reutilisables et donnees JSON statiques.
 
-  <br>
+## Apercu
 
-  [![Laravel](https://img.shields.io/badge/Laravel-12.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
-  [![Three.js](https://img.shields.io/badge/Three.js-3D-black?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org)
-  [![Alpine.js](https://img.shields.io/badge/Alpine.js-Interactive-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white)](https://alpinejs.dev)
-  [![Vite](https://img.shields.io/badge/Vite-Bundler-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+Le site met en avant un profil developpeur Full Stack, des projets techniques et un parcours, avec une navigation SPA:
 
-  <br>
-  
-  <p align="center">
-    <b>Une expérience web immersive alliant performance backend et créativité frontend.</b><br>
-    <i>Design sombre • Animations fluides • Architecture propre</i>
-  </p>
+- Accueil: hero, mise en avant de projets, CTA de navigation
+- A propos: presentation et experiences chargees depuis un endpoint JSON
+- Projets: grille complete des projets
+- Detail projet: vue detaillee via slug dynamique
+- Contact: informations + formulaire de contact visuel
 
-</div>
+## Stack Technique Actuelle
 
----
+- React 19
+- Vite 8
+- React Router (routing client)
+- Tailwind CSS
+- Framer Motion (animations d'apparition)
+- Three.js via React Three Fiber + Drei (fond etoile anime)
+- Lucide React (icones)
 
-## 🌌 Aperçu du Projet
+## Fonctionnalites Principales
 
-Ce portfolio n'est pas qu'une simple vitrine, c'est une **démonstration technique**. Il a été conçu pour prouver qu'un site peut être à la fois beau, interactif et facile à maintenir.
+- Routing SPA avec routes dediees et route dynamique `projects/:slug`
+- Chargement des donnees metier via `fetch` sur:
+  - `public/api/projects.json`
+  - `public/api/experiences.json`
+- Fond 3D immersif avec etoiles animees
+- Sections animees au scroll via composant reutilisable `AnimatedSection`
+- UI type glassmorphism et curseur personnalise desktop
+- Design responsive (mobile / tablette / desktop)
 
-> **"J’aime construire des applications propres, sécurisées et maintenables."**
+## Architecture du Projet
 
-### 💎 Highlights Visuels
-| Fonctionnalité | Description | Techno |
-| :--- | :--- | :---: |
-| **Univers 3D** | Arrière-plan cosmique interactif avec particules et connexions neuronales. | `Three.js` |
-| **Smooth Scroll** | Défilement inertiel ultra-fluide pour une sensation "premium". | `Lenis` |
-| **Glassmorphism** | Effets de flou et de transparence (`backdrop-blur`) pour une UI moderne. | `Tailwind` |
-| **Micro-Interactions** | Boutons magnétiques, curseur personnalisé, apparitions en cascade. | `GSAP/Alpine` |
-
----
-
-## 🧠 Architecture Intelligente
-
-Le site utilise une approche **"File-Based Content"** pour simplifier la gestion au quotidien sans base de données complexe pour les médias.
-
-```mermaid
-graph TD
-    A[Dossier Public] -->|Scan Automatique| B(Controller Laravel)
-    B -->|Injection| C{Vue Blade}
-    C -->|Rendu| D[Galerie Images]
-    C -->|Rendu| E[Snippet Code]
-    
-    subgraph "Système de Fichiers"
-    F[image.jpg]
-    G[code.php]
-    end
-    
-    F --> A
-    G --> A
+```text
+c:/code/Portefolio
+|- public/
+|  |- api/
+|  |  |- experiences.json
+|  |  |- projects.json
+|- src/
+|  |- components/
+|  |  |- AnimatedSection.jsx
+|  |  |- Footer.jsx
+|  |  |- Layout.jsx
+|  |  |- Navbar.jsx
+|  |  |- ThreeBackground.jsx
+|  |- pages/
+|  |  |- About.jsx
+|  |  |- Contact.jsx
+|  |  |- Home.jsx
+|  |  |- ProjectDetail.jsx
+|  |  |- Projects.jsx
+|  |- App.jsx
+|  |- index.css
+|  |- main.jsx
+|- index.html
+|- package.json
+|- vite.config.js
 ```
 
-### 🚀 Fonctionnalités "Senior"
-*   **Auto-Discovery** : Déposez une image dans un dossier, elle apparaît sur le site.
-*   **Code Highlighting** : Déposez un fichier `.php` ou `.js`, il est affiché avec la coloration syntaxique (Atom One Dark).
-*   **Performance** : Chargement différé des assets, build optimisé avec Vite.
+## Routing
 
----
+Routes definies dans `src/App.jsx`:
 
-## 🛠️ Stack Technique Détaillée
+- `/` -> `Home`
+- `/about` -> `About`
+- `/projects` -> `Projects`
+- `/projects/:slug` -> `ProjectDetail`
+- `/contact` -> `Contact`
 
-<div align="center">
+## Demarrage Local
 
-| **Backend** | **Frontend** | **Outils** |
-| :---: | :---: | :---: |
-| ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white) | ![Tailwind](https://img.shields.io/badge/Tailwind-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white) | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) |
-| ![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white) | ![Three.js](https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=three.js&logoColor=white) | ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white) |
-| ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) | ![Alpine.js](https://img.shields.io/badge/Alpine.js-8BC0D0?style=flat-square&logo=alpine.js&logoColor=white) | ![Composer](https://img.shields.io/badge/Composer-885630?style=flat-square&logo=composer&logoColor=white) |
+### Prerequis
 
-</div>
+- Node.js 20+
+- npm
 
----
-
-## 📂 Structure du Code
-
-Une organisation claire respectant les standards MVC.
+### Installation
 
 ```bash
-c:\code\Portefolio
-├── 📂 app
-│   └── 📂 Http/Controllers
-│       └── 📄 ProjectController.php  # 🧠 Cerveau : Scan les dossiers & gère les données
-├── 📂 resources
-│   ├── 📂 css
-│   │   └── 📄 app.css                # 🎨 Styles globaux & Tailwind
-│   ├── 📂 js
-│   │   └── 📄 app.js                 # ⚡ Logique Three.js & Alpine
-│   └── 📂 views
-│       ├── 📂 layouts
-│       │   └── 📄 public.blade.php   # 🏗️ Squelette (Head, Scripts, Loader)
-│       └── 📂 projects
-│           ├── 📄 index.blade.php    # 📋 Liste (Grille animée)
-│           └── 📄 show.blade.php     # 🔍 Détail (Galerie + Code Viewer)
-└── 📂 public
-    └── 📂 images/projects            # 📦 Contenu (Dropzone pour vos fichiers)
+npm install
 ```
 
----
+### Lancer en developpement
 
-## ⚡ Guide de Démarrage Rapide
+```bash
+npm run dev
+```
 
-Envie de tester le projet localement ?
+### Build de production
 
-1.  **Cloner le repo**
-    ```bash
-    git clone https://github.com/NoanBregeon/portfolio.git
-    ```
+```bash
+npm run build
+```
 
-2.  **Installer les dépendances**
-    ```bash
-    composer install && npm install
-    ```
+### Previsualiser le build
 
-3.  **Lancer la magie**
-    ```bash
-    npm run dev
-    php artisan serve
-    ```
+```bash
+npm run preview
+```
 
----
+## Scripts npm
 
-## 💡 Gestion de Contenu (CMS-less)
+- `npm run dev`: serveur de developpement Vite
+- `npm run build`: build production
+- `npm run preview`: preview local du build
+- `npm run lint`: lint ESLint
 
-Pas besoin de panel admin complexe. Tout se gère via le système de fichiers.
+## Gestion du Contenu
 
-### 📸 Ajouter des Images
-1.  Naviguez vers `public/images/projects/{slug-du-projet}/`.
-2.  Glissez vos fichiers (`.jpg`, `.png`, `.webp`).
-3.  **Résultat** : Elles s'ajoutent automatiquement à la galerie Lightbox.
+Le contenu affichable est gere par fichiers JSON dans `public/api`.
 
-### 💻 Ajouter du Code
-1.  Dans le même dossier, créez un fichier (ex: `code.php`, `snippet.js`).
-2.  Collez votre code.
-3.  **Résultat** : Une section "Extrait de Code" apparaît avec la coloration syntaxique et un bouton "Copier".
+- Pour ajouter/modifier des projets: editer `public/api/projects.json`
+- Pour ajouter/modifier les experiences: editer `public/api/experiences.json`
 
----
+Le detail projet est resolu par `slug`, il faut donc garantir des slugs uniques dans `projects.json`.
 
+## Licence
 
-- **Système de Particules** : Champ d'étoiles animé pour la profondeur.
-- **Éclairage Dynamique** : Sources lumineuses colorées (Indigo/Cyan) orbitant autour de la scène.
-- **Réactivité** : La scène s'adapte au redimensionnement et reste fluide.
-
-### 2. Interface Utilisateur (UI)
-- **Navigation Fluide** : Système d'ancres pour une navigation sans rechargement visible.
-- **Glassmorphism** : Utilisation de flous d'arrière-plan (`backdrop-blur`) pour la lisibilité sur le fond 3D.
-- **Animations** : Effets d'apparition (`fade-in-up`), curseur personnalisé et indicateurs de scroll.
-
-### 3. Mode Debug
-Un mode développeur est intégré pour inspecter la scène 3D.
-- **Activation** : Ajoutez `?debug=true` à l'URL.
-- **Fonctionnalités** : Active `OrbitControls` pour bouger la caméra, affiche les axes et la grille, et permet le Raycasting (clic sur les objets pour voir leurs noms).
-
----
-
-## 📂 Contenu du Portfolio (Projets Présentés)
-
-Ce dépôt contient la présentation détaillée de mes projets académiques et personnels :
-
-- **🛒 Projet E6 - Drive & Caisse** : Solution complète (Web Laravel + Client Lourd C#) avec gestion de stock temps réel et infrastructure Debian/AD.
-- **🏥 Consultation Médicale** : Application de gestion de rendez-vous (Laravel + PostgreSQL).
-- **✈️ Gestion Aéroport** : Système de gestion de terminaux et vols avec modèles Eloquent complexes.
-- **🤖 Bots Discord/Twitch** : Automatisation et modération en Node.js.
-
----
-
-## 🚀 Installation & Démarrage
-
-### Prérequis
-- PHP 8.2 ou supérieur
-- Composer
-- Node.js & NPM
-
-### Étapes
-1. **Cloner le projet**
-   ```bash
-   git clone https://github.com/NoanBregeon/Portefolio.git
-   cd Portefolio
-   ```
-
-2. **Installer les dépendances**
-   ```bash
-   composer install
-   npm install
-   ```
-
-3. **Configuration**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-
-4. **Lancer le développement**
-   ```bash
-   # Lance Laravel Serve + Vite en parallèle
-   composer run dev
-   ```
-
----
-
-## 🛠️ Structure du Code
-
-- `resources/js/three-scene.js` : **Cœur de la 3D**. Contient la scène, la caméra, les lumières et la boucle d'animation.
-- `resources/views/layouts/public.blade.php` : **Layout Principal**. Contient le canvas WebGL, le curseur personnalisé et la structure HTML de base.
-- `resources/views/home.blade.php` : **Contenu**. Toute la présentation (Hero, About, Projects, Skills) se trouve ici.
-
----
-
-## 📝 Licence
-
-Ce portfolio est open-source. Le code est libre d'utilisation pour inspiration, mais le contenu (textes, projets, identité) reste la propriété de **Noan Bregeon**.
-
----
-
-<div align="center">
-  <p>Fait avec ❤️ et beaucoup de ☕ par <b>Noan Bregeon</b></p>
-  
-  [![GitHub](https://img.shields.io/badge/GitHub-NoanBregeon-181717?style=for-the-badge&logo=github)](https://github.com/NoanBregeon)
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/noan-bregeon)
-</div>
-*Généré et maintenu par Noan Bregeon.*
+Code open source a but portfolio/inspiration.
+Le contenu (identite, textes, projets personnels) reste la propriete de Noan Bregeon.
