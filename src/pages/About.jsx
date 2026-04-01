@@ -1,0 +1,207 @@
+import { useState, useEffect } from 'react';
+import AnimatedSection from '../components/AnimatedSection';
+import { Terminal, Database, Server, Layout, ShieldCheck, CheckCircle, Loader2 } from 'lucide-react';
+
+export default function About() {
+  const [experiences, setExperiences] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/experiences.json')
+      .then(res => res.json())
+      .then(data => {
+        setExperiences(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Erreur de chargement du parcours :", err);
+        setLoading(false);
+      });
+  }, []);
+
+  const getIcon = (iconName) => {
+    switch (iconName) {
+      case 'server': return <Server className="w-4 h-4" />;
+      case 'terminal': return <Terminal className="w-4 h-4" />;
+      case 'database': return <Database className="w-4 h-4" />;
+      case 'layout': return <Layout className="w-4 h-4" />;
+      default: return <Terminal className="w-4 h-4" />;
+    }
+  };
+
+  return (
+    <div className="w-full pb-20">
+      {/* 2. Présentation (About Me) */}
+      <section className="py-24 relative z-10 bg-gray-900/30 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <AnimatedSection>
+              <h2 className="text-3xl font-bold text-white mb-6 flex items-center font-display">
+                <span className="text-indigo-500 mr-3">#</span> À propos de moi
+              </h2>
+              <div className="prose prose-invert text-gray-300 leading-relaxed font-sans">
+                <p>
+                  Bonjour, je suis un développeur full stack junior en 2ème année de BTS SIO SLAM.
+                  Je conçois et développe des applications métiers avec une forte composante backend et impliquent une gestion rigoureuse des bases de données de l'interface jusqu'au système.
+                </p>
+                <p className="mt-4">
+                  De la modélisation sous MariaDB au développement de clients lourds en C# Avalonia communicant avec un cœur PHP Laravel, je maîtrise les enjeux d'un déploiement complet sur serveur Linux (Docker / Nginx).
+                </p>
+              </div>
+
+              {/* Mini Stack */}
+              <div className="flex flex-wrap gap-3 mt-6">
+                <span className="px-3 py-1 bg-gray-800 border border-gray-700 rounded text-sm text-indigo-300">PHP Laravel</span>
+                <span className="px-3 py-1 bg-gray-800 border border-gray-700 rounded text-sm text-indigo-300">C# Avalonia</span>
+                <span className="px-3 py-1 bg-gray-800 border border-gray-700 rounded text-sm text-indigo-300">MariaDB</span>
+                <span className="px-3 py-1 bg-gray-800 border border-gray-700 rounded text-sm text-indigo-300">Docker & Debian</span>
+              </div>
+            </AnimatedSection>
+
+            {/* Photo de profil */}
+            <AnimatedSection delay={0.2} className="flex justify-center items-center group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+              <div className="relative w-64 h-64 rounded-full border-4 border-indigo-500/50 shadow-2xl overflow-hidden group-hover:shadow-indigo-500/20 group-hover:border-indigo-400 transition-all duration-500">
+                <img src="/image_photo_profile.png" alt="Photo de profil" className="w-full h-full object-cover" />
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Compétences Techniques */}
+      <section className="py-24 relative z-10 bg-gray-900/30 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-4 font-display">Compétences Techniques</h2>
+            <div className="w-24 h-1 bg-indigo-500 mx-auto rounded-full"></div>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Langages */}
+            <AnimatedSection delay={0.1} className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-bold text-indigo-400 mb-4 border-b border-gray-700 pb-2">Langages</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>PHP 8</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>C# .NET</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>SQL</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>JavaScript / React</li>
+              </ul>
+            </AnimatedSection>
+
+            {/* Frameworks */}
+            <AnimatedSection delay={0.2} className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-bold text-indigo-400 mb-4 border-b border-gray-700 pb-2">Frameworks</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Laravel (MVC, API)</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Avalonia (MVVM)</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Vite & React</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Tailwind CSS</li>
+              </ul>
+            </AnimatedSection>
+
+            {/* Système */}
+            <AnimatedSection delay={0.3} className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-bold text-indigo-400 mb-4 border-b border-gray-700 pb-2">Système & BDD</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>MariaDB / MySQL</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Debian & SSH</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Nginx / Apache</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Docker & Compose</li>
+              </ul>
+            </AnimatedSection>
+
+            {/* Méthodologie */}
+            <AnimatedSection delay={0.4} className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-bold text-indigo-400 mb-4 border-b border-gray-700 pb-2">Outils & Concepts</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Architectures Distribuées</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Debug HTTP (500/502)</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Client Léger / Lourd</li>
+                <li className="flex items-center"><div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></div>Git / GitHub</li>
+              </ul>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Soft Skills & Parcours */}
+      <section className="py-24 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Soft Skills */}
+            <AnimatedSection className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl hover:shadow-[0_0_30px_rgba(99,102,241,0.1)] transition-all duration-500 relative overflow-hidden group/card">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-[50px] pointer-events-none group-hover/card:bg-indigo-500/20 transition-all duration-500"></div>
+              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-indigo-200 mb-8 font-display">Soft Skills</h3>
+              <div className="space-y-6">
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 mr-5 mt-1 group-hover:scale-110 group-hover:bg-indigo-500/20 group-hover:text-indigo-300 transition-all duration-500 shadow-[inset_0px_0px_10px_rgba(99,102,241,0.2)]">
+                    <CheckCircle className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-lg mb-1 group-hover:text-indigo-300 transition-colors">Autonomie</h4>
+                    <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Capable d'apprendre de façon indépendante et proactive.</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 mr-5 mt-1 group-hover:scale-110 group-hover:bg-purple-500/20 group-hover:text-purple-300 transition-all duration-500 shadow-[inset_0px_0px_10px_rgba(168,85,247,0.2)]">
+                    <CheckCircle className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-lg mb-1 group-hover:text-purple-300 transition-colors">Adaptabilité</h4>
+                    <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Découpe de problèmes complexes en tâches simples, ouvert au changement.</p>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            {/* Parcours */}
+            <AnimatedSection delay={0.2} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl lg:col-span-1 mt-8 lg:mt-0 lg:row-span-2 hover:shadow-[0_0_30px_rgba(99,102,241,0.1)] transition-all duration-500 relative overflow-hidden group/timeline">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500/5 rounded-full blur-[80px] pointer-events-none group-hover/timeline:bg-indigo-500/10 transition-all duration-500 z-0"></div>
+              
+              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-indigo-200 mb-8 font-display relative z-10">Mon Parcours</h3>
+              
+              <ol className="relative border-l-2 border-indigo-500/20 ml-4 space-y-10 z-10">
+                {loading ? (
+                  <div className="flex items-center justify-center py-10">
+                    <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+                  </div>
+                ) : (
+                experiences.map((xp, index) => (
+                  <li key={index} className="ml-8 group cursor-default">
+                    <span className="absolute flex items-center justify-center w-10 h-10 bg-gray-900 rounded-full -left-5 ring-4 ring-gray-900 text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500 shadow-[0_0_15px_rgba(99,102,241,0.4)] group-hover:shadow-[0_0_25px_rgba(99,102,241,0.8)] z-10">
+                      {getIcon(xp.icon)}
+                    </span>
+                    <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl group-hover:bg-white/[0.06] group-hover:border-indigo-500/40 transition-all duration-500 shadow-lg group-hover:shadow-[0_8px_25px_rgba(99,102,241,0.15)] group-hover:-translate-y-1">
+                      <h4 className="mb-1 text-lg font-extrabold text-white group-hover:text-indigo-300 transition-colors duration-300">{xp.title}</h4>
+                      <time className="block mb-3 text-sm font-medium text-indigo-300/80">
+                        <span className="text-gray-300">{xp.company}</span> <span className="mx-2 opacity-40">|</span> <span className="text-indigo-400">{xp.date}</span>
+                      </time>
+                      <p className="text-sm text-gray-400 leading-relaxed font-light">{xp.description}</p>
+                    </div>
+                  </li>
+                )))}
+              </ol>
+            </AnimatedSection>
+
+            {/* Veille */}
+            <AnimatedSection delay={0.4} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl mt-8 lg:mt-0 hover:shadow-[0_0_30px_rgba(99,102,241,0.1)] transition-all duration-500 relative overflow-hidden group/veille">
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/10 rounded-full blur-[50px] pointer-events-none group-hover/veille:bg-purple-500/20 transition-all duration-500"></div>
+              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200 mb-8 font-display">Veille Techno</h3>
+              <ul className="space-y-4">
+                <li className="bg-white/[0.03] p-4 rounded-xl border border-white/5 hover:border-indigo-500/40 hover:bg-white/[0.06] transition-all duration-300 cursor-default group hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/10">
+                  <span className="text-indigo-400 font-bold block text-base mb-1 group-hover:text-indigo-300 transition-colors">Écosystème PHP & Laravel</span>
+                  <span className="text-xs text-gray-400 leading-relaxed block">Suivi des nouvelles versions, des pratiques MVC et optimisations de requêtes SQL (MariaDB).</span>
+                </li>
+                <li className="bg-white/[0.03] p-4 rounded-xl border border-white/5 hover:border-purple-500/40 hover:bg-white/[0.06] transition-all duration-300 cursor-default group hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/10">
+                  <span className="text-purple-400 font-bold block text-base mb-1 group-hover:text-purple-300 transition-colors">Déploiement Docker & Linux</span>
+                  <span className="text-xs text-gray-400 leading-relaxed block">Exploration des méthodes de conteneurisation pour fiabiliser la mise en production des apps métiers.</span>
+                </li>
+              </ul>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
