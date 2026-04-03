@@ -1,16 +1,30 @@
 [
   {
-    "title": "Développement Système Drive",
+    "title": "Développement Full-Stack Drive E-Commerce",
     "company": "Projet de Formation (BTS SIO)",
     "date": "Sept 2024 - Aujourd'hui",
-    "description": "Création d'un backend Laravel B2B/B2C, d'une API REST de synchronisation et déploiement Linux.",
+    "description": "Conception et développement d'une application web e-commerce complète (Laravel) avec architecture MVC, API REST sécurisée et base de données relationnelle (MariaDB). Mise en place des flux de synchronisation entre services et déploiement sur environnement Linux (Debian, Nginx, Docker).",
     "icon": "server"
   },
   {
-    "title": "Client Lourd de Caisse",
+    "title": "Développement Client Lourd de Caisse",
     "company": "Projet de Formation (BTS SIO)",
     "date": "Janv 2025 - Aujourd'hui",
-    "description": "Développement C# Avalonia (MVVM) pour la facturation et mise à jour temps réel des stocks.",
+    "description": "Développement d'une application desktop en C# (.NET / Avalonia) suivant le pattern MVVM. Implémentation d'un moteur de facturation (TVA, remises) et synchronisation temps réel avec API REST (gestion des erreurs réseau, appels asynchrones, cohérence des données).",
     "icon": "terminal"
+  },
+  {
+    "title": "Administration Système & Déploiement DevOps",
+    "company": "Projet Personnel / Formation",
+    "date": "2025 - Aujourd'hui",
+    "description": "Mise en place d'une infrastructure Linux (Debian) pour hébergement d'applications web. Configuration de Docker Compose (App, DB, Nginx), sécurisation SSH, gestion des permissions et déploiement automatisé. Résolution d'incidents (HTTP 500, Vite build, permissions Laravel).",
+    "icon": "cpu"
+  },
+  {
+    "title": "Développement Bot Discord & Twitch",
+    "company": "Projet Personnel",
+    "date": "2025 - Aujourd'hui",
+    "description": "Conception d'un bot Node.js intégrant les API Discord et Twitch (modération, automatisation, gestion des événements live). Mise en place de systèmes persistants (JSON → base de données) et développement de fonctionnalités avancées (gestion des rôles, notifications, interactions temps réel).",
+    "icon": "code"
   }
 ]

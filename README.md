@@ -21,6 +21,7 @@ Application portfolio front-end construite avec React et Vite, orientee experien
 - [Architecture Technique](#architecture-technique)
 - [Structure Du Projet](#structure-du-projet)
 - [Installation Et Commandes](#installation-et-commandes)
+- [Configuration Contact EmailJS](#configuration-contact-emailjs)
 - [Gestion Du Contenu](#gestion-du-contenu)
 - [Licence](#licence)
 
@@ -56,6 +57,8 @@ Definition des routes dans [src/App.jsx](src/App.jsx):
 | `/projects` | `Projects` |
 | `/projects/:slug` | `ProjectDetail` |
 | `/contact` | `Contact` |
+| `/mentions-legales` | `MentionsLegales` |
+| `/confidentialite` | `Confidentialite` |
 
 ## Architecture Technique
 
@@ -122,6 +125,27 @@ Commandes principales:
 | `npm run build` | Genere le build de production |
 | `npm run preview` | Previsualise localement le build |
 | `npm run lint` | Lance ESLint |
+
+## Configuration Contact EmailJS
+
+Le formulaire de contact utilise EmailJS pour envoyer les messages vers l'adresse configuree.
+
+1. Copier `.env.example` en `.env.local`
+2. Renseigner les identifiants EmailJS:
+
+- `VITE_EMAILJS_SERVICE_ID`
+- `VITE_EMAILJS_TEMPLATE_ID`
+- `VITE_EMAILJS_PUBLIC_KEY`
+- `VITE_CONTACT_TO_EMAIL` (par defaut: `noanbregeon@gmail.com`)
+
+Variables attendues par le template EmailJS:
+
+- `from_name`
+- `from_email`
+- `message`
+- `to_email`
+
+Sans ces variables, le formulaire affiche une erreur de configuration au moment de l'envoi.
 
 ## Gestion Du Contenu
 

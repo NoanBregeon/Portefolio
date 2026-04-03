@@ -91,5 +91,155 @@
     "githubUrl": "#",
     "liveUrl": "#",
     "featured": false
+  },
+  {
+    "id": 4,
+    "slug": "api-auth-jwt",
+    "title": "Service d'Authentification (API JWT)",
+    "description": "Microservice d'authentification sécurisé utilisant JWT pour la gestion des sessions stateless.",
+    "categories": ["Laravel API", "JWT", "Security", "REST"],
+    "content": "Développement d'une API REST dédiée à la gestion des utilisateurs et à l'authentification sécurisée via tokens JWT. Ce service est conçu pour être découplé et utilisé par plusieurs applications clientes.",
+    "context": "Projet visant à compléter mon architecture E6 en isolant la gestion des accès dans un service indépendant.",
+    "architecture": "Architecture RESTful stateless. Authentification via JWT. Middleware Laravel pour sécurisation des routes API.",
+    "constraints": [
+      "Implémentation d'une authentification sans session (stateless).",
+      "Gestion sécurisée des tokens (expiration, refresh).",
+      "Protection contre les attaques courantes (bruteforce, CSRF sur endpoints sensibles)."
+    ],
+    "deepTech": {
+      "problem": "Tokens invalides après redémarrage du serveur.",
+      "solution": "Centralisation de la clé secrète JWT dans un fichier .env persistant et gestion du cache de configuration Laravel."
+    },
+    "codeSnippets": [
+      {
+        "title": "Middleware JWT",
+        "language": "php",
+        "code": "public function handle($request, Closure $next) {\n    try {\n        $user = JWTAuth::parseToken()->authenticate();\n    } catch (Exception $e) {\n        return response()->json(['error' => 'Unauthorized'], 401);\n    }\n    return $next($request);\n}"
+      }
+    ],
+    "evolution": "Migration possible vers OAuth2 (Laravel Passport) pour une compatibilité entreprise.",
+    "githubUrl": "#",
+    "liveUrl": "#",
+    "featured": false
+  },
+  {
+    "id": 5,
+    "slug": "dashboard-admin-react",
+    "title": "Dashboard Admin Full-Stack",
+    "description": "Interface d'administration moderne avec gestion dynamique des données et visualisation en temps réel.",
+    "categories": ["React", "API REST", "Chart.js", "Tailwind"],
+    "content": "Développement d'un dashboard permettant la gestion complète d'une base de données via une interface utilisateur réactive. Intégration de graphiques pour le suivi des performances.",
+    "context": "Projet conçu pour fournir un outil de pilotage des données pour mes applications Laravel.",
+    "architecture": "Frontend React découplé consommant une API Laravel. Gestion d'état via hooks.",
+    "constraints": [
+      "Gestion performante de grandes quantités de données (pagination, lazy loading).",
+      "Synchronisation en temps réel des données.",
+      "UX fluide et responsive."
+    ],
+    "deepTech": {
+      "problem": "Temps de chargement élevé sur les listes volumineuses.",
+      "solution": "Implémentation d'une pagination côté serveur et utilisation de requêtes optimisées (limit/offset)."
+    },
+    "codeSnippets": [
+      {
+        "title": "Fetch API React",
+        "language": "javascript",
+        "code": "useEffect(() => {\n    fetch('/api/products')\n        .then(res => res.json())\n        .then(data => setProducts(data));\n}, []);"
+      }
+    ],
+    "evolution": "Ajout d'un système de rôles et permissions avancé (RBAC).",
+    "githubUrl": "#",
+    "liveUrl": "#",
+    "featured": true
+  },
+  {
+    "id": 6,
+    "slug": "recommendation-system",
+    "title": "Moteur de Recommandation Produits",
+    "description": "Système intelligent de suggestion basé sur le comportement utilisateur.",
+    "categories": ["Algorithmie", "Data", "PHP", "MariaDB"],
+    "content": "Implémentation d'un moteur de recommandation basé sur des règles métier simples et l'analyse des historiques d'achat.",
+    "context": "Amélioration du système Drive E6 pour augmenter l'engagement utilisateur.",
+    "architecture": "Module backend intégré au système Laravel existant, utilisant des requêtes analytiques SQL.",
+    "constraints": [
+      "Performance sur des volumes de données importants.",
+      "Pertinence des recommandations.",
+      "Temps de réponse faible."
+    ],
+    "deepTech": {
+      "problem": "Requêtes SQL trop lentes sur les historiques volumineux.",
+      "solution": "Création d'index sur les colonnes clés et utilisation de requêtes agrégées optimisées."
+    },
+    "codeSnippets": [
+      {
+        "title": "Recommandation simple",
+        "language": "php",
+        "code": "$recommended = DB::table('order_items')\n    ->select('product_id', DB::raw('COUNT(*) as freq'))\n    ->groupBy('product_id')\n    ->orderByDesc('freq')\n    ->limit(5)\n    ->get();"
+      }
+    ],
+    "evolution": "Évolution vers un système de recommandation basé sur machine learning.",
+    "githubUrl": "#",
+    "liveUrl": "#",
+    "featured": false
+  },
+  {
+    "id": 7,
+    "slug": "bot-discord-saas",
+    "title": "Bot Discord SaaS avec Dashboard",
+    "description": "Système complet de gestion de bot Discord avec interface web d'administration.",
+    "categories": ["Node.js", "Discord API", "Web Dashboard", "MongoDB"],
+    "content": "Développement d'un bot Discord couplé à une interface web permettant la configuration en temps réel des fonctionnalités.",
+    "context": "Extension de mon bot existant pour en faire une solution scalable et maintenable.",
+    "architecture": "Backend Node.js + base de données + frontend web pour administration.",
+    "constraints": [
+      "Gestion multi-serveurs.",
+      "Persistance fiable des données.",
+      "Temps de réponse faible sur événements Discord."
+    ],
+    "deepTech": {
+      "problem": "Perte de données lors du redémarrage du bot.",
+      "solution": "Migration du stockage JSON vers une base MongoDB persistante."
+    },
+    "codeSnippets": [
+      {
+        "title": "Commande Discord",
+        "language": "javascript",
+        "code": "client.on('messageCreate', message => {\n    if (message.content === '!ping') {\n        message.reply('pong');\n    }\n});"
+      }
+    ],
+    "evolution": "Ajout d'un système d'abonnement et monétisation SaaS.",
+    "githubUrl": "#",
+    "liveUrl": "#",
+    "featured": true
+  },
+  {
+    "id": 8,
+    "slug": "security-layer-api",
+    "title": "Module de Sécurité API",
+    "description": "Implémentation avancée de protections contre les attaques web (rate limiting, brute force).",
+    "categories": ["Security", "Laravel", "Middleware", "API"],
+    "content": "Développement d'un module de sécurité pour API REST visant à protéger contre les abus et attaques courantes.",
+    "context": "Renforcement de la sécurité de mes applications web.",
+    "architecture": "Middleware Laravel interceptant les requêtes entrantes.",
+    "constraints": [
+      "Limiter les requêtes abusives sans impacter l'expérience utilisateur.",
+      "Stockage des logs d'attaque.",
+      "Scalabilité."
+    ],
+    "deepTech": {
+      "problem": "Attaques brute force sur endpoint login.",
+      "solution": "Implémentation d'un rate limiting basé sur IP avec blocage temporaire."
+    },
+    "codeSnippets": [
+      {
+        "title": "Rate Limiting",
+        "language": "php",
+        "code": "RateLimiter::for('login', function (Request $request) {\n    return Limit::perMinute(5)->by($request->ip());\n});"
+      }
+    ],
+    "evolution": "Ajout d'un système de détection d'anomalies basé sur logs.",
+    "githubUrl": "#",
+    "liveUrl": "#",
+    "featured": false
   }
 ]

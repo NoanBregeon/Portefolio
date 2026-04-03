@@ -1,7 +1,71 @@
+import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import AnimatedSection from '../components/AnimatedSection';
 import { Mail, MapPin, Send } from 'lucide-react';
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSending, setIsSending] = useState(false);
+  const [formStatus, setFormStatus] = useState({ type: '', message: '' });
+
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+  const toEmail = import.meta.env.VITE_CONTACT_TO_EMAIL || 'noanbregeon@gmail.com';
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!serviceId || !templateId || !publicKey) {
+      setFormStatus({
+        type: 'error',
+        message: 'Configuration EmailJS manquante. Renseignez les variables .env.local.'
+      });
+      return;
+    }
+
+    setIsSending(true);
+    setFormStatus({ type: '', message: '' });
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_email: toEmail
+        },
+        {
+          publicKey
+        }
+      );
+
+      setFormStatus({
+        type: 'success',
+        message: 'Message envoye avec succes. Je vous repondrai rapidement.'
+      });
+      setFormData({ name: '', email: '', message: '' });
+    } catch {
+      setFormStatus({
+        type: 'error',
+        message: "L'envoi a echoue. Veuillez reessayer dans un instant."
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <div className="w-full pb-20 pt-20 relative overflow-hidden">
       {/* Background glowing blobs */}
@@ -31,7 +95,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-xl mb-1 group-hover:text-indigo-200 transition-colors">Email</h3>
-                    <a href="mailto:contact@noanbregeon.fr" className="text-gray-400 hover:text-white transition-colors">contact@noanbregeon.fr</a>
+                    <a href="mailto:noanbregeon@gmail.com" className="text-gray-400 hover:text-white transition-colors">noanbregeon@gmail.com</a>
                   </div>
                 </div>
               </div>
@@ -55,27 +119,33 @@ export default function Contact() {
               <div className="absolute -inset-0.5 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-2xl blur opacity-30 group-hover/form:opacity-60 transition duration-500"></div>
               
               <div className="relative bg-gray-900/60 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 shadow-2xl">
-                <form className="flex flex-col space-y-5" onSubmit={(e) => e.preventDefault()}>
+                <form className="flex flex-col space-y-5" onSubmit={handleSubmit}>
                   
                   <div className="group relative">
                     <label htmlFor="name" className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 ml-1 transition-colors group-focus-within:text-indigo-400">Nom Complet</label>
-                    <input type="text" id="name" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:bg-white/10 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300" placeholder="Jean Dupont" />
+                    <input type="text" id="name" value={formData.name} onChange={handleChange} required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:bg-white/10 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300" placeholder="Jean Dupont" />
                   </div>
                   
                   <div className="group relative">
                     <label htmlFor="email" className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 ml-1 transition-colors group-focus-within:text-indigo-400">Email</label>
-                    <input type="email" id="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:bg-white/10 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300" placeholder="jean@example.com" />
+                    <input type="email" id="email" value={formData.email} onChange={handleChange} required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:bg-white/10 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300" placeholder="jean@example.com" />
                   </div>
                   
                   <div className="group relative">
                     <label htmlFor="message" className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 ml-1 transition-colors group-focus-within:text-indigo-400">Message</label>
-                    <textarea id="message" rows="4" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:bg-white/10 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300 resize-none" placeholder="Votre message..."></textarea>
+                    <textarea id="message" rows="4" value={formData.message} onChange={handleChange} required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:bg-white/10 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300 resize-none" placeholder="Votre message..."></textarea>
                   </div>
+
+                  {formStatus.message && (
+                    <p className={`text-sm ${formStatus.type === 'success' ? 'text-emerald-300' : 'text-red-300'}`}>
+                      {formStatus.message}
+                    </p>
+                  )}
                   
-                  <button type="submit" className="magnetic-btn w-full mt-2 py-4 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] flex items-center justify-center transform hover:-translate-y-1 transition-all duration-300 overflow-hidden relative group/btn">
+                  <button type="submit" disabled={isSending} className="magnetic-btn w-full mt-2 py-4 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold rounded-xl shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] flex items-center justify-center transform hover:-translate-y-1 transition-all duration-300 overflow-hidden relative group/btn">
                     <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover/btn:w-56 group-hover/btn:h-56 opacity-10"></span>
                     <Send className="w-5 h-5 mr-3 relative z-10 group-hover/btn:animate-pulse" />
-                    <span className="relative z-10 tracking-wide">Envoyer le message</span>
+                    <span className="relative z-10 tracking-wide">{isSending ? 'Envoi en cours...' : 'Envoyer le message'}</span>
                   </button>
                 </form>
               </div>
