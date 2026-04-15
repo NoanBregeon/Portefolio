@@ -2,20 +2,20 @@
   {
     "id": 1,
     "slug": "systeme-drive-laravel",
-    "title": "Drive E-Commerce (Client Léger E6)",
-    "description": "Application web monolithique complète de type Drive B2B/B2C. Gestion centralisée des utilisateurs, du catalogue et exposition d'une API REST pour synchronisation.",
+    "title": "Drive E-Commerce",
+    "description": "Application web complète de type Drive B2B/B2C simulant un environnement e-commerce réel. Gestion centralisée des utilisateurs, du catalogue produit et exposition d'une API REST pour synchronisation avec des systèmes externes.",
     "categories": ["PHP Laravel", "Blade", "MariaDB", "Nginx"],
-    "content": "Ce système web a exigé une modélisation rigoureuse de la base de données relationnelle en suivant les normes standard de conception (3NF). L'utilisation stricte du pattern MVC avec Laravel assure la maintenabilité du code. Le développement des interfaces s'est fait server-side avec Blade.",
-    "context": "Projet socle de mon épreuve E6 (BTS SIO SLAM). Il démontre ma capacité à concevoir et développer une solution Full Stack robuste capable d'agir comme « Source de Vérité » sur une base de données partagée.",
-    "architecture": "Architecture MVC Monolithique combinée à une API RESTful. Laravel agit simultanément comme serveur web (Génération Blade) et serveur d'API externe (Points d'entrée en JSON pour les applications métier Lourdes). DB partagée MariaDB.",
+    "content": "Ce système web a nécessité une modélisation rigoureuse de la base de données relationnelle en respectant les normes de conception (3NF). L’architecture repose sur le pattern MVC de Laravel garantissant maintenabilité, scalabilité et séparation des responsabilités. Les interfaces ont été développées en server-side rendering avec Blade.",
+    "context": "Simulation d’un environnement e-commerce de type Drive (B2B/B2C) visant à reproduire les contraintes d’un système réel de gestion de commandes, de catalogue produit et de synchronisation avec des applications métiers externes.",
+    "architecture": "Architecture MVC monolithique combinée à une API RESTful. Laravel agit à la fois comme serveur web (rendu Blade) et comme fournisseur d’API JSON pour des applications externes. Base de données MariaDB partagée.",
     "constraints": [
-      "Zéro dette technique sur la sécurité des routes via l'implémentation de Middlewares (Auth, CSRF).",
-      "Conception d'une base de données transactionnelle consistante sous MariaDB.",
-      "Mise en place de contrôleurs API Rest stricts pour autoriser la connexion au client lourd."
+      "Sécurisation des routes via middlewares (authentification, CSRF).",
+      "Conception d'une base de données transactionnelle robuste sous MariaDB.",
+      "Mise en place d’une API REST stricte pour communication avec des clients externes."
     ],
     "deepTech": {
-      "problem": "Erreur HTTP 500 lors de la synchronisation avec le client lourd C#.",
-      "solution": "Analyse des logs Laravel storage/logs/laravel.log. Identification d'un problème de permission sur les dossiers de cache et de session après un déploiement Git. Résolution via chmod -R 775 storage bootstrap/cache."
+      "problem": "Erreur HTTP 500 lors de la synchronisation avec une application cliente externe.",
+      "solution": "Analyse des logs Laravel (storage/logs). Identification d’un problème de permissions sur les dossiers cache et sessions après déploiement. Résolution via chmod -R 775 sur storage et bootstrap/cache."
     },
     "codeSnippets": [
       {
@@ -24,7 +24,7 @@
         "code": "public function updateStock(Request $request, $id) {\n    $product = Product::findOrFail($id);\n    $product->stock -= $request->quantity;\n    $product->save();\n    return response()->json(['status' => 'success', 'new_stock' => $product->stock]);\n}"
       }
     ],
-    "evolution": "Le système est conçu pour être scalable horizontalement en séparant la base de données du serveur applicatif. Une migration vers une architecture Microservices est facilitée par l'API REST déjà en place.",
+    "evolution": "Architecture conçue pour évoluer vers une séparation des services (microservices). L’API REST existante facilite cette transition.",
     "gallery": [
       { "url": "https://placehold.co/800x450/1e293b/4f46e5?text=Dashboard+Laravel+Drive", "alt": "Aperçu du Dashboard Laravel" },
       { "url": "https://placehold.co/800x450/1e293b/4f46e5?text=Gestion+Catalogue+Produit", "alt": "Gestion du Catalogue" }
@@ -35,21 +35,21 @@
   },
   {
     "id": 2,
-    "slug": "caisse-lourde-avalonia",
-    "title": "Caisse Enregistreuse (Client Lourd E6)",
-    "description": "Application de bureau axée sur la performance développée en C# (Avalonia). Facturation hors-ligne résiliente et synchronisation asynchrone des transactions.",
+    "slug": "logiciel-lourd-gestion-stock",
+    "title": "Logiciel de Caisse & Gestion de Stock",
+    "description": "Application desktop de gestion de caisse et de stock, conçue pour simuler un environnement de vente physique. Intègre la facturation, la gestion des paniers et la synchronisation avec un serveur distant via API REST.",
     "categories": ["C# .NET", "Avalonia", "MVVM", "API REST"],
-    "content": "Client lourd multi-plateforme pensé spécifiquement pour la facturation en point de vente physique. Ce développement critique s'appuie sur le pattern MVVM (Model-View-ViewModel) typique des applications logicielles C# modernes.",
-    "context": "Élément clé de mon architecture logicielle E6 (Interopérabilité Client Lourd / Léger). L'objectif est d'atteindre le réseau de l'application Laravel et valider les transactions de caisse de façon sécurisée.",
-    "architecture": "Architecture MVVM native C# exploitant Avalonia UI. La couche d'accès réseau via HttpClient asynchrone consomme l'API REST Laravel, garantissant la cohérence des stocks vis-à-vis du Back-Office web.",
+    "content": "Client lourd multi-plateforme développé avec Avalonia UI, basé sur le pattern MVVM. L'application gère la facturation en point de vente, la gestion de stock et les interactions avec un système distant via API REST. La séparation stricte entre logique métier et interface garantit une forte maintenabilité.",
+    "context": "Développement d’un logiciel métier simulant un système de caisse en point de vente, interconnecté à un back-office distant. L’objectif est de reproduire les contraintes réelles de synchronisation, de calcul transactionnel et de robustesse réseau.",
+    "architecture": "Architecture MVVM en C# avec Avalonia UI. Communication réseau via HttpClient asynchrone consommant une API REST distante. Synchronisation des données en temps réel avec le back-office.",
     "constraints": [
-      "Implémentation d'un moteur de calcul de facturation embarqué complexe (TVAs multiples, remises locales calculées).",
-      "Synchronisation fiabilisée avec le serveur distant (gestion des timeouts HTTP, statut 500, Retry Policies).",
-      "Séparation rigoureuse de la couche de présentation (XAML/Avalonia bindings) et de la logique métier (ViewModel C#)."
+      "Implémentation d’un moteur de calcul de facturation (TVA multiples, remises).",
+      "Gestion des erreurs réseau (timeouts, erreurs HTTP, retry policies).",
+      "Séparation stricte View / ViewModel / Model."
     ],
     "deepTech": {
-      "problem": "Fuite de mémoire (Memory Leak) lors de l'ouverture multiple de fenêtres de panier.",
-      "solution": "Utilisation du Diagnostic Tool de Visual Studio. Identification d'événements non désabonnés sur le ViewModel. Implémentation de IDisposable et désabonnement systématique."
+      "problem": "Fuite de mémoire lors de l'ouverture répétée de fenêtres.",
+      "solution": "Analyse avec les outils de diagnostic Visual Studio. Identification d’événements non désabonnés. Implémentation de IDisposable et nettoyage des handlers."
     },
     "codeSnippets": [
       {
@@ -58,7 +58,7 @@
         "code": "public async Task ValidateTransactionAsync() {\n    var response = await _httpClient.PostAsJsonAsync(\"api/transactions\", CurrentCart);\n    if (response.IsSuccessStatusCode) {\n        IsSuccess = true;\n        await ClearCart();\n    }\n}"
       }
     ],
-    "evolution": "Grâce à Avalonia UI, l'application est prête pour un portage sur Linux et MacOS avec 100% du code métier partagé via .NET Standard.",
+    "evolution": "Application conçue pour être portable sur plusieurs plateformes (Windows, Linux, macOS) grâce à Avalonia et .NET.",
     "gallery": [
       { "url": "https://placehold.co/800x450/1e293b/4f46e5?text=Interface+Caisse+Avalonia", "alt": "Interface de Caisse" },
       { "url": "https://placehold.co/800x450/1e293b/4f46e5?text=Gestion+Panier+XAML", "alt": "Gestion du Panier" }
@@ -69,6 +69,36 @@
   },
   {
     "id": 3,
+    "slug": "système-automatisé-discord",
+    "title": "Système automatisé Discord",
+    "description": "Système complet de gestion de bot Discord avec interface web d'administration.",
+    "categories": ["Node.js", "Discord API", "Web Dashboard", "MongoDB"],
+    "content": "Développement d'un bot Discord couplé à une interface web permettant la configuration en temps réel des fonctionnalités.",
+    "context": "Extension de mon bot existant pour en faire une solution scalable et maintenable.",
+    "architecture": "Backend Node.js + base de données + frontend web pour administration.",
+    "constraints": [
+      "Gestion multi-serveurs.",
+      "Persistance fiable des données.",
+      "Temps de réponse faible sur événements Discord."
+    ],
+    "deepTech": {
+      "problem": "Perte de données lors du redémarrage du bot.",
+      "solution": "Migration du stockage JSON vers une base MongoDB persistante."
+    },
+    "codeSnippets": [
+      {
+        "title": "Commande Discord",
+        "language": "javascript",
+        "code": "client.on('messageCreate', message => {\n    if (message.content === '!ping') {\n        message.reply('pong');\n    }\n});"
+      }
+    ],
+    "evolution": "Ajout d'un système d'abonnement et monétisation SaaS.",
+    "githubUrl": "#",
+    "liveUrl": "#",
+    "featured": true
+  },
+  {
+    "id": 4,
     "slug": "infrastructure-deploiement-deep",
     "title": "Infrastructure & SecOps",
     "description": "Sécurisation et déploiement d'un environnement de production sous Debian avec Docker et reverse proxy Nginx.",
@@ -93,7 +123,7 @@
     "featured": false
   },
   {
-    "id": 4,
+    "id": 5,
     "slug": "api-auth-jwt",
     "title": "Service d'Authentification (API JWT)",
     "description": "Microservice d'authentification sécurisé utilisant JWT pour la gestion des sessions stateless.",
@@ -123,7 +153,7 @@
     "featured": false
   },
   {
-    "id": 5,
+    "id": 6,
     "slug": "dashboard-admin-react",
     "title": "Dashboard Admin Full-Stack",
     "description": "Interface d'administration moderne avec gestion dynamique des données et visualisation en temps réel.",
@@ -153,7 +183,7 @@
     "featured": true
   },
   {
-    "id": 6,
+    "id": 7,
     "slug": "recommendation-system",
     "title": "Moteur de Recommandation Produits",
     "description": "Système intelligent de suggestion basé sur le comportement utilisateur.",
@@ -178,66 +208,6 @@
       }
     ],
     "evolution": "Évolution vers un système de recommandation basé sur machine learning.",
-    "githubUrl": "#",
-    "liveUrl": "#",
-    "featured": false
-  },
-  {
-    "id": 7,
-    "slug": "bot-discord-saas",
-    "title": "Bot Discord SaaS avec Dashboard",
-    "description": "Système complet de gestion de bot Discord avec interface web d'administration.",
-    "categories": ["Node.js", "Discord API", "Web Dashboard", "MongoDB"],
-    "content": "Développement d'un bot Discord couplé à une interface web permettant la configuration en temps réel des fonctionnalités.",
-    "context": "Extension de mon bot existant pour en faire une solution scalable et maintenable.",
-    "architecture": "Backend Node.js + base de données + frontend web pour administration.",
-    "constraints": [
-      "Gestion multi-serveurs.",
-      "Persistance fiable des données.",
-      "Temps de réponse faible sur événements Discord."
-    ],
-    "deepTech": {
-      "problem": "Perte de données lors du redémarrage du bot.",
-      "solution": "Migration du stockage JSON vers une base MongoDB persistante."
-    },
-    "codeSnippets": [
-      {
-        "title": "Commande Discord",
-        "language": "javascript",
-        "code": "client.on('messageCreate', message => {\n    if (message.content === '!ping') {\n        message.reply('pong');\n    }\n});"
-      }
-    ],
-    "evolution": "Ajout d'un système d'abonnement et monétisation SaaS.",
-    "githubUrl": "#",
-    "liveUrl": "#",
-    "featured": true
-  },
-  {
-    "id": 8,
-    "slug": "security-layer-api",
-    "title": "Module de Sécurité API",
-    "description": "Implémentation avancée de protections contre les attaques web (rate limiting, brute force).",
-    "categories": ["Security", "Laravel", "Middleware", "API"],
-    "content": "Développement d'un module de sécurité pour API REST visant à protéger contre les abus et attaques courantes.",
-    "context": "Renforcement de la sécurité de mes applications web.",
-    "architecture": "Middleware Laravel interceptant les requêtes entrantes.",
-    "constraints": [
-      "Limiter les requêtes abusives sans impacter l'expérience utilisateur.",
-      "Stockage des logs d'attaque.",
-      "Scalabilité."
-    ],
-    "deepTech": {
-      "problem": "Attaques brute force sur endpoint login.",
-      "solution": "Implémentation d'un rate limiting basé sur IP avec blocage temporaire."
-    },
-    "codeSnippets": [
-      {
-        "title": "Rate Limiting",
-        "language": "php",
-        "code": "RateLimiter::for('login', function (Request $request) {\n    return Limit::perMinute(5)->by($request->ip());\n});"
-      }
-    ],
-    "evolution": "Ajout d'un système de détection d'anomalies basé sur logs.",
     "githubUrl": "#",
     "liveUrl": "#",
     "featured": false
