@@ -33,7 +33,7 @@ export default function Home() {
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 p-1 shadow-[0_0_30px_rgba(99,102,241,0.5)] relative z-10 transform transition duration-500 group-hover:scale-105">
               <div className="w-full h-full rounded-full bg-gray-800 border-4 border-gray-900 overflow-hidden flex items-center justify-center">
                 {/* Profile photo */}
-                <img src="/image_photo_profile.png" alt="Photo de profil" className="w-full h-full object-cover rounded-full" />
+                <img src="/image_photo_profile.webp" alt="Photo de profil" className="w-full h-full object-cover rounded-full" />
               </div>
             </div>
           </AnimatedSection>
