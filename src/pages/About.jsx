@@ -174,7 +174,7 @@ export default function About() {
                     </div>
                     <div>
                       <h4 className="text-white font-bold text-lg mb-1 group-hover:text-indigo-300 transition-colors">Autonomie</h4>
-                      <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Capable d'apprendre de façon indépendante et proactive.</p>
+                      <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Capacité à concevoir et déployer des projets complets (Laravel, C#, Docker) sans supervision, de la modélisation BDD jusqu'à la mise en production.</p>
                     </div>
                   </div>
                   <div className="flex items-start group">
@@ -183,7 +183,25 @@ export default function About() {
                     </div>
                     <div>
                       <h4 className="text-white font-bold text-lg mb-1 group-hover:text-purple-300 transition-colors">Adaptabilité</h4>
-                      <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Découpe de problèmes complexes en tâches simples, ouvert au changement.</p>
+                      <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Aisance à changer de stack ou d'architecture (MVC → API REST, monolithe → conteneurisation Docker) selon les contraintes projet.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start group">
+                    <div className="w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-400 mr-5 mt-1 group-hover:scale-110 group-hover:bg-pink-500/20 group-hover:text-pink-300 transition-all duration-500 shadow-[inset_0px_0px_10px_rgba(236,72,153,0.2)]">
+                      <CheckCircle className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold text-lg mb-1 group-hover:text-pink-300 transition-colors">Résolution de problèmes</h4>
+                      <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Analyse et correction d'erreurs complexes (permissions Linux, Docker, Nginx, Laravel) en environnement réel.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start group">
+                    <div className="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400 mr-5 mt-1 group-hover:scale-110 group-hover:bg-cyan-500/20 group-hover:text-cyan-300 transition-all duration-500 shadow-[inset_0px_0px_10px_rgba(34,211,238,0.2)]">
+                      <CheckCircle className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold text-lg mb-1 group-hover:text-cyan-300 transition-colors">Rigueur technique</h4>
+                      <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Respect des bonnes pratiques (MVC, séparation des couches, sécurité BDD, normalisation).</p>
                     </div>
                   </div>
                 </div>
@@ -193,16 +211,24 @@ export default function About() {
               <AnimatedSection delay={0.4} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl hover:shadow-[0_0_30px_rgba(99,102,241,0.1)] transition-all duration-500 relative overflow-hidden group/veille">
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/10 rounded-full blur-[50px] pointer-events-none group-hover/veille:bg-purple-500/20 transition-all duration-500"></div>
                 <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200 mb-8 font-display">Veille Techno</h3>
-                <ul className="space-y-4">
-                  <li className="bg-white/[0.03] p-4 rounded-xl border border-white/5 hover:border-indigo-500/40 hover:bg-white/[0.06] transition-all duration-300 cursor-default group hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/10">
+                <div className="space-y-4">
+                  <div className="bg-white/[0.03] p-4 rounded-xl border border-white/5 hover:border-indigo-500/40 hover:bg-white/[0.06] transition-all duration-300 cursor-default group hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/10">
                     <span className="text-indigo-400 font-bold block text-base mb-1 group-hover:text-indigo-300 transition-colors">Écosystème PHP & Laravel</span>
-                    <span className="text-xs text-gray-400 leading-relaxed block">Suivi des nouvelles versions, des pratiques MVC et optimisations de requêtes SQL (MariaDB).</span>
-                  </li>
-                  <li className="bg-white/[0.03] p-4 rounded-xl border border-white/5 hover:border-purple-500/40 hover:bg-white/[0.06] transition-all duration-300 cursor-default group hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/10">
+                    <span className="text-xs text-gray-400 leading-relaxed block">Suivi des évolutions Laravel (12.x), optimisation des performances (requêtes SQL, Eloquent), et bonnes pratiques MVC pour applications scalables.</span>
+                  </div>
+                  <div className="bg-white/[0.03] p-4 rounded-xl border border-white/5 hover:border-purple-500/40 hover:bg-white/[0.06] transition-all duration-300 cursor-default group hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/10">
                     <span className="text-purple-400 font-bold block text-base mb-1 group-hover:text-purple-300 transition-colors">Déploiement Docker & Linux</span>
-                    <span className="text-xs text-gray-400 leading-relaxed block">Exploration des méthodes de conteneurisation pour fiabiliser la mise en production des apps métiers.</span>
-                  </li>
-                </ul>
+                    <span className="text-xs text-gray-400 leading-relaxed block">Veille sur les workflows de déploiement (Docker Compose, CI/CD GitHub Actions), gestion des permissions Linux et optimisation des environnements serveur.</span>
+                  </div>
+                  <div className="bg-white/[0.03] p-4 rounded-xl border border-white/5 hover:border-pink-500/40 hover:bg-white/[0.06] transition-all duration-300 cursor-default group hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/10">
+                    <span className="text-pink-400 font-bold block text-base mb-1 group-hover:text-pink-300 transition-colors">Architecture logicielle & API REST</span>
+                    <span className="text-xs text-gray-400 leading-relaxed block">Étude des échanges entre applications (client lourd / client léger), mapping de données, intégration d'API externes.</span>
+                  </div>
+                  <div className="bg-white/[0.03] p-4 rounded-xl border border-white/5 hover:border-cyan-500/40 hover:bg-white/[0.06] transition-all duration-300 cursor-default group hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/10">
+                    <span className="text-cyan-400 font-bold block text-base mb-1 group-hover:text-cyan-300 transition-colors">Sécurité Web & BDD</span>
+                    <span className="text-xs text-gray-400 leading-relaxed block">Sensibilisation aux bonnes pratiques : gestion des accès, isolation des services, sécurisation des connexions base de données.</span>
+                  </div>
+                </div>
               </AnimatedSection>
             </div>
           </div>

@@ -34,7 +34,7 @@ export default function MentionsLegales() {
 
             <div>
               <h2 className="text-white font-semibold mb-2">Hebergement</h2>
-              <p>Hebergeur : a completer selon la plateforme de production.</p>
+              <p>Hebergeur : OVHcloud.</p>
             </div>
           </AnimatedSection>
         </div>

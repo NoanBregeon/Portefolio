@@ -92,12 +92,12 @@ export default function Footer() {
         </div>
 
         <div className="pt-5 flex flex-col gap-3 text-xs text-gray-500 md:flex-row md:items-center md:justify-between">
-          <p>&copy; {year} - Concu et developpe par Noan Bregeon.</p>
+          <p>&copy; {year} - Conçu et développé par Noan Bregeon.</p>
           <div className="flex items-center gap-4">
-            <Link to="/mentions-legales" className="hover:text-indigo-300 transition-colors">Mentions legales</Link>
-            <Link to="/confidentialite" className="hover:text-indigo-300 transition-colors">Confidentialite</Link>
+            <Link to="/mentions-legales" className="hover:text-indigo-300 transition-colors">Mentions légales</Link>
+            <Link to="/confidentialite" className="hover:text-indigo-300 transition-colors">Confidentialité</Link>
           </div>
-          <p>Derniere mise a jour : {monthYearLabel}</p>
+          <p>Dernière mise à jour : {monthYearLabel}</p>
         </div>
       </div>
     </footer>

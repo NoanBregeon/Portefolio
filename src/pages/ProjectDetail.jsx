@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import AnimatedSection from '../components/AnimatedSection';
-import { ArrowLeft, GitBranch, ExternalLink, Server, Database, Globe, Monitor, Code, ShieldAlert, Cpu, Layers } from 'lucide-react';
+import { ArrowLeft, GitBranch, ExternalLink, Server, Database, Globe, Monitor, Code, ShieldAlert, Cpu, Layers, Download, Eye, X } from 'lucide-react';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeDocumentation, setActiveDocumentation] = useState(null);
 
   useEffect(() => {
     // Appel asynchrone simulant la récupération des données d'un projet précis
@@ -22,6 +23,27 @@ export default function ProjectDetail() {
         setLoading(false);
       });
   }, [slug]);
+
+  useEffect(() => {
+    if (!activeDocumentation) {
+      document.body.style.overflow = '';
+      return;
+    }
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setActiveDocumentation(null);
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [activeDocumentation]);
 
   if (loading) {
     return (
@@ -41,9 +63,88 @@ export default function ProjectDetail() {
     );
   }
 
+  const documentationBlocks = [
+    {
+      key: 'technique',
+      title: 'Documentation Technique',
+      source: project.documentationTechnique || project.documentation || [],
+      fileUrl: project.documentationTechniqueFile || null,
+      filename: project.documentationTechniqueFile
+        ? project.documentationTechniqueFile.split('/').pop()
+        : `${project.slug}-documentation-technique.txt`,
+    },
+    {
+      key: 'utilisateur',
+      title: 'Documentation Utilisateur',
+      source: project.documentationUtilisateur || [],
+      fileUrl: project.documentationUtilisateurFile || null,
+      filename: project.documentationUtilisateurFile
+        ? project.documentationUtilisateurFile.split('/').pop()
+        : `${project.slug}-documentation-utilisateur.txt`,
+    },
+  ];
+
+  const buildDocumentationText = (block) => {
+    const lines = [block.title, '', project.title, ''];
+
+    if (project.description) {
+      lines.push('Résumé', project.description, '');
+    }
+
+    if (block.key === 'technique') {
+      if (project.context) {
+        lines.push('Contexte', project.context, '');
+      }
+
+      if (project.content) {
+        lines.push('Fonctionnement technique', project.content, '');
+      }
+
+      if (project.architecture) {
+        lines.push('Architecture', project.architecture, '');
+      }
+
+      if (project.evolution) {
+        lines.push('Évolution', project.evolution, '');
+      }
+    }
+
+    block.source.forEach((item) => {
+      lines.push(item.title, item.text, '');
+    });
+
+    return lines.join('\n');
+  };
+
+  const handleDownloadDocumentation = (block) => {
+    if (block.fileUrl) {
+      const link = document.createElement('a');
+      link.href = block.fileUrl;
+      link.download = block.filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      return;
+    }
+
+    const blob = new Blob([buildDocumentationText(block)], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = block.filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const activeBlock = activeDocumentation
+    ? documentationBlocks.find((block) => block.key === activeDocumentation) || null
+    : null;
+
   return (
     <div className="w-full pb-20 pt-10">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <AnimatedSection className="mb-8">
           <Link to="/projects" className="inline-flex items-center text-sm text-gray-400 hover:text-indigo-400 transition-colors">
@@ -103,10 +204,10 @@ export default function ProjectDetail() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             
             {/* Main Content Column */}
-            <div className="lg:col-span-2 space-y-10">
+            <div className="lg:col-span-8 space-y-10">
               
               {/* Contexte E6 */}
               {project.context && (
@@ -251,14 +352,14 @@ export default function ProjectDetail() {
             </div>
 
             {/* Sidebar (Contraintes techniques) */}
-            <div className="lg:col-span-1">
-              {project.constraints && (
-                <div className="sticky top-24">
+            <div className="lg:col-span-4">
+              <div className="sticky top-24 space-y-5">
+                {project.constraints && (
                   <div className="bg-gray-800/40 backdrop-blur-md rounded-2xl border border-gray-700 p-6 overflow-hidden relative shadow-lg">
                     {/* Glowing effect background */}
                     <div className="absolute -top-20 -right-20 w-48 h-48 bg-indigo-500/10 rounded-full blur-[50px] pointer-events-none"></div>
                     <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-purple-500/10 rounded-full blur-[50px] pointer-events-none"></div>
-                    
+
                     <h3 className="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-3 flex items-center font-display">
                       Contraintes & Défis
                     </h3>
@@ -273,13 +374,90 @@ export default function ProjectDetail() {
                       ))}
                     </ul>
                   </div>
-                </div>
-              )}
+                )}
+
+                {documentationBlocks.some((block) => block.source.length > 0 || block.fileUrl) && (
+                  <div className="space-y-4">
+                    {documentationBlocks.map((block) => (
+                      <article key={block.key} className="bg-gray-950/70 border border-gray-700 rounded-xl p-3 shadow-xl">
+                        <div>
+                          <div className="mb-3">
+                            <p className="text-[10px] uppercase tracking-[0.22em] text-indigo-300/70 mb-1">
+                              {block.key === 'technique' ? 'Doc interne' : 'Doc utilisateur'}
+                            </p>
+                            <h3 className="text-base font-bold text-white leading-tight">{block.title}</h3>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => setActiveDocumentation(block.key)}
+                              className="inline-flex items-center justify-center px-3 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg text-white transition font-medium text-xs"
+                            >
+                              <Eye className="w-4 h-4 mr-1.5" /> Visualiser
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDownloadDocumentation(block)}
+                              className="inline-flex items-center justify-center px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition shadow-lg shadow-indigo-500/20 font-medium text-xs"
+                            >
+                              <Download className="w-4 h-4 mr-1.5" /> Télécharger
+                            </button>
+                          </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
           </div>
         </AnimatedSection>
       </div>
+
+      {activeBlock && (
+        <div
+          className="fixed inset-0 z-[80] bg-black/75 backdrop-blur-sm p-4 sm:p-8"
+          onClick={() => setActiveDocumentation(null)}
+        >
+          <div
+            className="relative w-full max-w-6xl h-[92vh] mx-auto bg-gray-950 border border-indigo-500/30 rounded-2xl shadow-2xl overflow-hidden"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800 bg-gray-900/80">
+              <h3 className="text-lg font-bold text-white">{activeBlock.title}</h3>
+              <button
+                type="button"
+                onClick={() => setActiveDocumentation(null)}
+                className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white transition"
+                aria-label="Fermer la documentation"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="h-[calc(92vh-73px)] overflow-auto p-5">
+              {activeBlock.fileUrl ? (
+                <iframe
+                  src={activeBlock.fileUrl}
+                  title={activeBlock.title}
+                  className="w-full h-full min-h-[520px] rounded-xl border border-white/10 bg-black/30"
+                />
+              ) : (
+                <div className="space-y-3">
+                  {activeBlock.source.map((item, index) => (
+                    <div key={index} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                      <h4 className="text-base font-bold text-indigo-300 mb-2">{item.title}</h4>
+                      <p className="text-sm text-gray-300 leading-relaxed">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -4,6 +4,7 @@
     "slug": "systeme-drive-laravel",
     "title": "Drive E-Commerce",
     "description": "Application web complète de type Drive B2B/B2C simulant un environnement e-commerce réel. Gestion centralisée des utilisateurs, du catalogue produit et exposition d'une API REST pour synchronisation avec des systèmes externes.",
+    "image": "/images/lourde/accueil_legere.png",
     "categories": ["PHP Laravel", "Blade", "MariaDB", "Nginx"],
     "content": "Ce système web a nécessité une modélisation rigoureuse de la base de données relationnelle en respectant les normes de conception (3NF). L’architecture repose sur le pattern MVC de Laravel garantissant maintenabilité, scalabilité et séparation des responsabilités. Les interfaces ont été développées en server-side rendering avec Blade.",
     "context": "Simulation d’un environnement e-commerce de type Drive (B2B/B2C) visant à reproduire les contraintes d’un système réel de gestion de commandes, de catalogue produit et de synchronisation avec des applications métiers externes.",
@@ -25,9 +26,40 @@
       }
     ],
     "evolution": "Architecture conçue pour évoluer vers une séparation des services (microservices). L’API REST existante facilite cette transition.",
+    "documentationTechnique": [
+      {
+        "title": "Objectif fonctionnel",
+        "text": "L'application légère permet de simuler un parcours client e-commerce complet avec consultation du catalogue, gestion du panier et suivi du compte utilisateur."
+      },
+      {
+        "title": "Socle technique",
+        "text": "Le projet repose sur Laravel côté serveur, une base MariaDB partagée et une exposition JSON pour garantir une intégration simple avec d'autres systèmes."
+      },
+      {
+        "title": "Points de vigilance",
+        "text": "Les priorités sont la cohérence des données, la sécurité des routes, la lisibilité du code MVC et la possibilité de faire évoluer l'architecture vers des services séparés."
+      }
+    ],
+    "documentationUtilisateur": [
+      {
+        "title": "Se connecter et naviguer",
+        "text": "L'utilisateur accède à la boutique, consulte les produits et navigue entre les pages sans configuration particulière."
+      },
+      {
+        "title": "Gérer le panier",
+        "text": "Les produits peuvent être ajoutés, modifiés ou retirés depuis le panier avant validation de la commande."
+      },
+      {
+        "title": "Gérer son compte",
+        "text": "L'espace compte permet de consulter et mettre à jour les informations principales de l'utilisateur."
+      }
+    ],
     "gallery": [
-      { "url": "https://placehold.co/800x450/1e293b/4f46e5?text=Dashboard+Laravel+Drive", "alt": "Aperçu du Dashboard Laravel" },
-      { "url": "https://placehold.co/800x450/1e293b/4f46e5?text=Gestion+Catalogue+Produit", "alt": "Gestion du Catalogue" }
+      { "url": "/images/lourde/accueil_legere.png", "alt": "Accueil Application Légère" },
+      { "url": "/images/lourde/produit_legere.png", "alt": "Catalogue Produits" },
+      { "url": "/images/lourde/panier_legere.png", "alt": "Panier 1" },
+      { "url": "/images/lourde/panier_legere_2.png", "alt": "Panier 2" },
+      { "url": "/images/lourde/gestion_compte.png", "alt": "Gestion Compte" }
     ],
     "githubUrl": "https://github.com/NoanBregeon/Epreuve_E6_Legere",
     "liveUrl": "#",
@@ -38,6 +70,7 @@
     "slug": "logiciel-lourd-gestion-stock",
     "title": "Logiciel de Caisse & Gestion de Stock",
     "description": "Application desktop de gestion de caisse et de stock, conçue pour simuler un environnement de vente physique. Intègre la facturation, la gestion des paniers et la synchronisation avec un serveur distant via API REST.",
+    "image": "/images/legere/page_connexion.png",
     "categories": ["C# .NET", "Avalonia", "MVVM", "API REST"],
     "content": "Client lourd multi-plateforme développé avec Avalonia UI, basé sur le pattern MVVM. L'application gère la facturation en point de vente, la gestion de stock et les interactions avec un système distant via API REST. La séparation stricte entre logique métier et interface garantit une forte maintenabilité.",
     "context": "Développement d’un logiciel métier simulant un système de caisse en point de vente, interconnecté à un back-office distant. L’objectif est de reproduire les contraintes réelles de synchronisation, de calcul transactionnel et de robustesse réseau.",
@@ -59,9 +92,41 @@
       }
     ],
     "evolution": "Application conçue pour être portable sur plusieurs plateformes (Windows, Linux, macOS) grâce à Avalonia et .NET.",
+    "documentationTechnique": [
+      {
+        "title": "Objectif fonctionnel",
+        "text": "L'application lourde reproduit un poste de caisse et de gestion de stock avec facturation, contrôle des paniers et synchronisation vers un back-office distant."
+      },
+      {
+        "title": "Socle technique",
+        "text": "Le client desktop est développé avec Avalonia et le pattern MVVM, tandis que les échanges de données sont gérés via HttpClient et une API REST."
+      },
+      {
+        "title": "Points de vigilance",
+        "text": "La robustesse du produit dépend de la gestion des erreurs réseau, du découplage View / ViewModel / Model et du nettoyage des ressources lors des ouvertures de fenêtres."
+      }
+    ],
+    "documentationUtilisateur": [
+      {
+        "title": "Ouvrir l'application",
+        "text": "L'utilisateur se connecte avec ses identifiants pour accéder à l'interface de caisse et au stock."
+      },
+      {
+        "title": "Saisir une vente",
+        "text": "Les articles sont ajoutés au panier, puis validés pour générer la transaction et synchroniser les données."
+      },
+      {
+        "title": "Suivre les opérations",
+        "text": "L'interface permet de contrôler les stocks, les promotions et les utilisateurs selon les droits disponibles."
+      }
+    ],
     "gallery": [
-      { "url": "https://placehold.co/800x450/1e293b/4f46e5?text=Interface+Caisse+Avalonia", "alt": "Interface de Caisse" },
-      { "url": "https://placehold.co/800x450/1e293b/4f46e5?text=Gestion+Panier+XAML", "alt": "Gestion du Panier" }
+      { "url": "/images/legere/page_connexion.png", "alt": "Page de Connexion" },
+      { "url": "/images/legere/gestion_stock.png", "alt": "Gestion du Stock" },
+      { "url": "/images/legere/gestion_utilisateur_lourd.png", "alt": "Gestion Utilisateurs - Application Lourde" },
+      { "url": "/images/legere/gestion_utilisateur_web.png", "alt": "Gestion Utilisateurs - Application Web" },
+      { "url": "/images/legere/gestion_commande.png", "alt": "Gestion des Commandes" },
+      { "url": "/images/legere/gestion_promotions.png", "alt": "Gestion des Promotions" }
     ],
     "githubUrl": "https://github.com/NoanBregeon/Epreuve_E6_Lourde",
     "liveUrl": "#",
@@ -72,6 +137,7 @@
     "slug": "système-automatisé-discord",
     "title": "Système automatisé Discord",
     "description": "Système complet de gestion de bot Discord avec interface web d'administration.",
+    "image": "/images/systeme_discord/ping.png",
     "categories": ["Node.js", "Discord API", "Web Dashboard", "MongoDB"],
     "content": "Développement d'un bot Discord couplé à une interface web permettant la configuration en temps réel des fonctionnalités.",
     "context": "Extension de mon bot existant pour en faire une solution scalable et maintenable.",
@@ -93,6 +159,42 @@
       }
     ],
     "evolution": "Ajout d'un système d'abonnement et monétisation SaaS.",
+    "documentationTechniqueFile": "/docs/documentation_technique_bot.pdf",
+    "documentationUtilisateurFile": "/docs/documentation_utilisateur_bot.pdf",
+    "documentationTechnique": [
+      {
+        "title": "Architecture du bot",
+        "text": "Le service repose sur Node.js avec une couche de commandes Discord et un back-office web pour piloter les fonctionnalités en temps réel."
+      },
+      {
+        "title": "Persistance",
+        "text": "Les données de configuration et d'état sont centralisées dans MongoDB pour garantir la continuité après redémarrage."
+      },
+      {
+        "title": "Exploitation",
+        "text": "La documentation technique PDF détaille l'installation, la structure des modules et les procédures de maintenance."
+      }
+    ],
+    "documentationUtilisateur": [
+      {
+        "title": "Prise en main",
+        "text": "Le guide utilisateur explique comment inviter le bot, configurer les permissions et activer les commandes principales."
+      },
+      {
+        "title": "Utilisation quotidienne",
+        "text": "Les scénarios d'usage couvrent la modération, les réponses automatiques et les commandes utilitaires disponibles."
+      },
+      {
+        "title": "Support",
+        "text": "La documentation utilisateur PDF précise les actions de dépannage les plus fréquentes et les bonnes pratiques de configuration."
+      }
+    ],
+    "gallery": [
+      { "url": "/images/systeme_discord/ping.png", "alt": "Commande ping du bot Discord" },
+      { "url": "/images/systeme_discord/help_1.png", "alt": "Aide bot Discord - écran 1" },
+      { "url": "/images/systeme_discord/help_2.png", "alt": "Aide bot Discord - écran 2" },
+      { "url": "/images/systeme_discord/help_3.png", "alt": "Aide bot Discord - écran 3" }
+    ],
     "githubUrl": "#",
     "liveUrl": "#",
     "featured": true
@@ -181,35 +283,5 @@
     "githubUrl": "#",
     "liveUrl": "#",
     "featured": true
-  },
-  {
-    "id": 7,
-    "slug": "recommendation-system",
-    "title": "Moteur de Recommandation Produits",
-    "description": "Système intelligent de suggestion basé sur le comportement utilisateur.",
-    "categories": ["Algorithmie", "Data", "PHP", "MariaDB"],
-    "content": "Implémentation d'un moteur de recommandation basé sur des règles métier simples et l'analyse des historiques d'achat.",
-    "context": "Amélioration du système Drive E6 pour augmenter l'engagement utilisateur.",
-    "architecture": "Module backend intégré au système Laravel existant, utilisant des requêtes analytiques SQL.",
-    "constraints": [
-      "Performance sur des volumes de données importants.",
-      "Pertinence des recommandations.",
-      "Temps de réponse faible."
-    ],
-    "deepTech": {
-      "problem": "Requêtes SQL trop lentes sur les historiques volumineux.",
-      "solution": "Création d'index sur les colonnes clés et utilisation de requêtes agrégées optimisées."
-    },
-    "codeSnippets": [
-      {
-        "title": "Recommandation simple",
-        "language": "php",
-        "code": "$recommended = DB::table('order_items')\n    ->select('product_id', DB::raw('COUNT(*) as freq'))\n    ->groupBy('product_id')\n    ->orderByDesc('freq')\n    ->limit(5)\n    ->get();"
-      }
-    ],
-    "evolution": "Évolution vers un système de recommandation basé sur machine learning.",
-    "githubUrl": "#",
-    "liveUrl": "#",
-    "featured": false
   }
 ]

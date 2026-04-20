@@ -51,7 +51,7 @@ export default function Projects() {
                     {project.image ? (
                       <img src={project.image} alt={project.title} className="w-full h-full object-cover relative z-10" />
                     ) : (
-                      <span className="text-gray-600 font-mono relative z-10">IMAGE_PROJET</span>
+                      <span className="text-gray-600 font-mono relative z-10">Image non referencee</span>
                     )}
                   </div>
 

@@ -1,6 +1,13 @@
 import { motion } from 'framer-motion';
+import { useAnimationSettings } from '../context/AnimationContext';
 
 export default function AnimatedSection({ children, className = '', delay = 0 }) {
+  const { animationsEnabled } = useAnimationSettings();
+
+  if (!animationsEnabled) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
